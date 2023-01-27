@@ -1,7 +1,14 @@
+import os
+
 from deta import Deta 
+from dotenv import load_dotenv
 
-DETA_KEY = "a0c7sguy_sd2Cp3YAUnRFKLHRbWvCeXCeT1QcjTcW"
 
+#load the env variable
+load_dotenv(".env")
+
+
+DETA_KEY = os.getenv("DETA_KEY")
 #initialise a project key
 
 deta=Deta(DETA_KEY)
@@ -19,4 +26,10 @@ def fetch_all_users():
     res = db.fetch()
     return res.items
 
-print(fetch_all_users())
+# print(fetch_all_users())
+
+def get_user(username):
+    """if cant find username, it will return nothing"""
+    return db.get(username)
+
+print (get_user("skirwan"))
