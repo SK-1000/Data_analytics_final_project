@@ -23,32 +23,33 @@ def home(uploaded_file):
     else:
         st.header('To start please upload a file')
 
-def stats(dataframe):
-    st.header('Data Statistics')
-    st.write(dataframe.describe())
+# def stats(dataframe):
+#     st.header('Data Statistics')
+#     st.write(dataframe.describe())
 
-def data_header(dataframe):
-    st.header ('Data Header')
-    st.write(dataframe.head())
+# def data_header(dataframe):
+#     st.header ('Data Header')
+#     st.write(dataframe.head())
 
-def plot(dataframe):
-    fig, ax = plt.subplots(1,1)
-    ax.scatter(x=df['Order Timestamp'], y=df['Total Price Paid Per Ticket'])
-    ax.set_xlabel('Order Timestamp')
-    ax.set_ylabel('Total Price Paid Per Ticket')
+# def plot(dataframe):
+#     fig, ax = plt.subplots(1,1)
+#     ax.scatter(x=df['Order Timestamp'], y=df['Total Price Paid Per Ticket'])
+#     ax.set_xlabel('Order Timestamp')
+#     ax.set_ylabel('Total Price Paid Per Ticket')
 
-    st.pyplot(fig)
-
-
-def interactive_plot(dataframe):
-    x_axis_val = st.selectbox('Select X-Axis Value', options=df.columns)
-    y_axis_val = st.selectbox('Select Y-Axis Value', options=df.columns)
-    col = st.color_picker('Pick a Plot Colour')
+#     st.pyplot(fig)
 
 
-    plot = px.scatter(dataframe, x=x_axis_val, y=y_axis_val)
-    plot.update_traces(marker=dict(color=col))
-    st.plotly_chart(plot)
+# def interactive_plot(dataframe):
+#     x_axis_val = st.selectbox('Select X-Axis Value', options=df.columns)
+#     y_axis_val = st.selectbox('Select Y-Axis Value', options=df.columns)
+#     col = st.color_picker('Pick a Plot Colour')
+
+
+#     plot = px.scatter(dataframe, x=x_axis_val, y=y_axis_val)
+#     plot.update_traces(marker=dict(color=col))
+#     st.plotly_chart(plot)
+
 
 
 #sidebar code
