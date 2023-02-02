@@ -2,6 +2,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import matplotlib as mpl
 
 df = st.session_state['df'] 
 st.header('Data Statistics')
@@ -72,3 +73,30 @@ fig5, (ax1, ax2) = plt.subplots(1, 2, figsize=(5, 2.7))
 my_plotter(ax1, data1, data2, {'marker': 'x'})
 my_plotter(ax2, data3, data4, {'marker': 'o'})
 st.pyplot(fig5)
+
+
+st.header ('Styling Artists')
+
+fig6, ax = plt.subplots(figsize=(5, 2.7))
+x = np.arange(len(data1))
+ax.plot(x, np.cumsum(data1), color='blue', linewidth=3, linestyle='--')
+l, = ax.plot(x, np.cumsum(data2), color='orange', linewidth=2)
+l.set_linestyle(':')
+st.pyplot(fig6)
+
+
+st.header ('Colours')
+
+fig7, ax = plt.subplots(figsize=(5, 2.7))
+ax.scatter(data1, data2, s=50, facecolor='C0', edgecolor='k')
+st.pyplot(fig7)
+
+st.header ('Plotting Dates and Stings')
+fig8, ax = plt.subplots(figsize=(5, 2.7), layout='constrained')
+dates = np.arange(np.datetime64('2021-11-15'), np.datetime64('2021-12-25'),
+                  np.timedelta64(1, 'h'))
+data = np.cumsum(np.random.randn(len(dates)))
+ax.plot(dates, data)
+cdf = mpl.dates.ConciseDateFormatter(ax.xaxis.get_major_locator())
+ax.xaxis.set_major_formatter(cdf)
+st.pyplot(fig8)
