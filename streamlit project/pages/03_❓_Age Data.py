@@ -18,14 +18,17 @@ autopct='%1.1f%%', shadow=True, startangle=120)
 # plt.title("Gender breakdown\n"+"All Events")
 st.pyplot(fig9)
 
-st.header('Gender of participants Table')
+st.header('Participants sales per gender')
 
 genderTable = df.pivot_table(index='Gender', aggfunc='sum')
 st.dataframe(genderTable)
 
+st.header('Participants Ticket sales per gender')
 
 genderValueTable = df.pivot_table(index='Gender', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
 st.dataframe(genderValueTable)
 
-
+st.header('Participants Ticket sales per gender per Race')
+genderValuePerEventTable = df.pivot_table(index='Gender', columns='Event Name', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
+st.dataframe(genderValuePerEventTable)
 
