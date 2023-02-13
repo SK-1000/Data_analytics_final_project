@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-
-# df = st.session_state['df'] 
+import io
 
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
 
@@ -10,9 +9,11 @@ uploaded_file = st.sidebar.file_uploader('Upload your file here')
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
-    st.header ('Data Header')
-    st.write(df.head())
-    st.header ('Data Shape')
-    st.write(df.shape)
+    st.header ('Data Information')
+    buffer = io.StringIO()
+    df.info(buf=buffer)
+    s = buffer.getvalue()
+    st.text(s)
 else:
     st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+

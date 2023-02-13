@@ -16,20 +16,44 @@ if uploaded_file is not None:
 
     st.header('Gender of participants in all Races')
 
-
     fig9, ax = plt.subplots()  # Create a figure containing a single axes.
     eventName = df["Event Name"]
     gender = df["Gender"].value_counts()
-    colors = ["#1f77b4", "#ff7f0e"]
+    colors = ["#4BFFC9", "#32a89b"]
     plt.pie(gender, labels=gender, colors=colors,
     autopct='%1.1f%%', shadow=True, startangle=120)
     # plt.title("Gender breakdown\n"+"All Events")
     st.pyplot(fig9)
 
+    st.header('Gender Breakdown per Race')
+    
+    race = df["Event Name"]
+
+    gender = df["Gender"].value_counts()
+  
+
     st.header('Participants sales per gender')
 
-    genderTable = df.pivot_table(index='Gender', aggfunc='sum')
+    genderTable = df.pivot_table(index='Gender',values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
     st.dataframe(genderTable)
+
+
+    st.header('DUNNO YET')
+
+    eventGenderTable = df.pivot_table(index='Event Name', values=['Gender'], aggfunc='count')
+    st.dataframe(eventGenderTable)
+
+
+    st.header('Gender Breakdown per Cycle')
+
+
+
+    fig10, ax = plt.subplots()  # Create a figure containing a single axes.
+    genderBreakPerCycle = df.groupby(['Event Name'])['Gender'].value_counts().plot(kind='pie')
+    # st.dataframe(genderBreakPerCycle)
+    st.pyplot(fig10)
+
+  
 
     st.header('Participants Ticket sales per gender')
 
