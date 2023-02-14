@@ -29,17 +29,20 @@ if uploaded_file is not None:
     AvgPricePerTicket = df['Total Price Paid Per Ticket'].describe()
     st.dataframe(AvgPricePerTicket)
 
-    st.header('Gender of participants')
+    
+    st.header('correlation between age year and ticket prices')
+    corr =df[['Age','Event Year', 'Ticket Price','Total Price Paid Per Ticket','Ticket Fee','Discount Amount','Additional Purchases Total Paid', 'Raised']].corr()
+    st.dataframe(corr)
+
+    fig16 = plt.figure(figsize=(8,8))
+    plt.matshow(corr, cmap='RdBu', fignum=fig16.number)
+    st.pyplot(fig16)
 
 
-    fig9, ax = plt.subplots()  # Create a figure containing a single axes.
-    eventName = df["Event Name"]
-    gender = df["Gender"].value_counts()
-    colors = ["#1f77b4", "#ff7f0e"]
-    plt.pie(gender, labels=gender, colors=colors,
-    autopct='%1.1f%%', shadow=True, startangle=120)
-    # plt.title("Gender breakdown\n"+"All Events")
-    st.pyplot(fig9)
+
+
+
+
 
     st.header('Participants sales per gender')
 
