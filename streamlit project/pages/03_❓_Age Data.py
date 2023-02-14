@@ -15,17 +15,18 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
 
-    st.header('Gender of participants')
+    st.header('Age Category breakdown')
 
 
-    fig9, ax = plt.subplots()  # Create a figure containing a single axes.
-    eventName = df["Event Name"]
-    gender = df["Gender"].value_counts()
-    colors = ["#1f77b4", "#ff7f0e"]
-    plt.pie(gender, labels=gender, colors=colors,
-    autopct='%1.1f%%', shadow=True, startangle=120)
-    # plt.title("Gender breakdown\n"+"All Events")
-    st.pyplot(fig9)
+
+    ageCategoryBreakdown = df['Age Category'].value_counts()       
+    st.dataframe(ageCategoryBreakdown)
+
+    fig16, ax = plt.subplots()  # Create a figure containing a single axes.
+    df['Age Category'].value_counts().plot(kind='pie', figsize=(6,6) )
+    st.pyplot(fig16)
+
+
 
     st.header('Participants sales per gender')
 
