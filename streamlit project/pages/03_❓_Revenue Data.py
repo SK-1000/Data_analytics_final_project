@@ -20,6 +20,14 @@ if uploaded_file is not None:
     genderValueTable = df.pivot_table(index='Event Name', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
     st.dataframe(genderValueTable)
 
+    st.header('Average Price Paid per ticket')
+
+    fig15, ax = plt.subplots()  # Create a figure containing a single axes.
+    AvgPricePerTicketPlot = df['Total Price Paid Per Ticket'].plot(kind='box', vert=False, figsize=(14,6))
+    st.pyplot(fig15)
+
+    AvgPricePerTicket = df['Total Price Paid Per Ticket'].describe()
+    st.dataframe(AvgPricePerTicket)
 
     st.header('Gender of participants')
 

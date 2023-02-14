@@ -1,9 +1,11 @@
 
+
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import matplotlib as mpl
+
 
 
 
@@ -15,6 +17,7 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
     st.header('Gender of participants')
+
 
 
     fig9, ax = plt.subplots()  # Create a figure containing a single axes.

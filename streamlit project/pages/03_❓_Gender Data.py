@@ -49,11 +49,44 @@ if uploaded_file is not None:
 
 
     fig10, ax = plt.subplots()  # Create a figure containing a single axes.
-    genderBreakPerCycle = df.groupby(['Event Name'])['Gender'].value_counts().plot(kind='pie')
-    # st.dataframe(genderBreakPerCycle)
+    genderBreakPerCycles = df.groupby(['Event Name'])['Gender'].value_counts().plot(kind='pie')
+    # st.dataframe(genderBreakPerCycles)
     st.pyplot(fig10)
 
-  
+
+    fig11, ax = plt.subplots()  # Create a figure containing a single axes.
+    genderBreakPerCycles = df.groupby(['Event Name'])['Gender'].value_counts().plot(kind='pie')
+    # st.dataframe(genderBreakPerCycles)
+    st.pyplot(fig11)
+
+
+
+    
+
+    # make data
+    x = df['Event Year']
+    y = df['Gender']
+
+    # plot
+    fig12, ax = plt.subplots()
+
+    ax.plot(x, y)
+
+    # ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+    #     ylim=(0, 8), yticks=np.arange(1, 8))
+
+    plt.show()
+    st.pyplot(fig12)
+
+
+    st.header('Most Frequent Gender')
+    gender1Table = df['Gender'].describe()
+    st.dataframe(gender1Table)
+
+
+
+
+
 
     st.header('Participants Ticket sales per gender')
 
