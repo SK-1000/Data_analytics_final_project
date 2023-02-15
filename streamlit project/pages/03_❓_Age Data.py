@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import matplotlib as mpl
-import pandas as pd
+import altair as alt
+
 
 
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
@@ -25,6 +26,23 @@ if uploaded_file is not None:
     fig16, ax = plt.subplots()  # Create a figure containing a single axes.
     df['Age Category'].value_counts().plot(kind='pie', figsize=(6,6) )
     st.pyplot(fig16)
+
+    
+
+    fig17, ax = plt.subplots(1,1)
+    ax.scatter(x=df['Event Year'], y=df['Age'])
+    ax.set_xlabel=('Event Year')
+    st.pyplot(fig17)
+
+
+    
+# decided to try using an altair chart from the streamlit documentation description https://docs.streamlit.io/library/api-reference/charts/st.altair_chart
+    st.header('Plot of Age per Event per Year')
+
+    c = alt.Chart(df).mark_circle().encode(alt.Y('Event Year', scale=alt.Scale(domain=(2019, 2023))),
+    x='Age', size='Ticket Price', color='Ticket Price', tooltip=['Age', 'Event Year', 'Ticket Price'])
+
+    st.altair_chart(c, use_container_width=True)
 
 
 
