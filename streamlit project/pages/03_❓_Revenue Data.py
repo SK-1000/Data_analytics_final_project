@@ -34,6 +34,9 @@ if uploaded_file is not None:
     corr =df[['Age','Event Year', 'Ticket Price','Total Price Paid Per Ticket','Ticket Fee','Discount Amount','Additional Purchases Total Paid', 'Raised']].corr()
     st.dataframe(corr)
 
+    st.header('Ticket Price paid per order date')
+    st.line_chart(df, x="Order Timestamp", y="Ticket Price")
+
     fig16 = plt.figure(figsize=(8,8))
     plt.matshow(corr, cmap='RdBu', fignum=fig16.number)
     #need to figure out how to add labels to this correlation chart

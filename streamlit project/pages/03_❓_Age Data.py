@@ -37,13 +37,12 @@ if uploaded_file is not None:
 
     
 # decided to try using an altair chart from the streamlit documentation description https://docs.streamlit.io/library/api-reference/charts/st.altair_chart
-    st.header('Plot of Age per Event per Year')
+    st.header('Plot of Ticket price paid per age each year')
 
     c = alt.Chart(df).mark_circle().encode(alt.Y('Event Year', scale=alt.Scale(domain=(2019, 2023))),
     x='Age', size='Ticket Price', color='Ticket Price', tooltip=['Age', 'Event Year', 'Ticket Price'])
 
     st.altair_chart(c, use_container_width=True)
-
 
 
     st.header('Participants sales per gender')
