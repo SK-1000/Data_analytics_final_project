@@ -7,7 +7,8 @@ import plotly_express as px
 import streamlit_authenticator as stauth
 import database as db
 
-
+# This widens the space on the page where data is displayed
+st.set_page_config(layout="wide")
 
 # headers, titles and text
 st.title("Event Data Analysis Tool")

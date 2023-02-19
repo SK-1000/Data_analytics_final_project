@@ -1,4 +1,3 @@
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -6,10 +5,7 @@ import numpy as np
 import matplotlib as mpl
 import altair as alt
 
-
-
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
-
 
 # is file uploaded
 if uploaded_file is not None:
@@ -17,11 +13,15 @@ if uploaded_file is not None:
     st.session_state['df'] = df
 
     st.header('Age Category breakdown')
-
-
-
     ageCategoryBreakdown = df['Age Category'].value_counts()       
     st.dataframe(ageCategoryBreakdown)
+
+
+    st.header ('Age Category Profit')
+    ax = df[['Profit Per Ticket', 'Age Category']].boxplot(by='Age Category',figsize=(10,6))
+    ax.set_ylabel('Profit')
+    
+
 
     fig16, ax = plt.subplots()  # Create a figure containing a single axes.
     df['Age Category'].value_counts().plot(kind='pie', figsize=(6,6) )
@@ -36,22 +36,18 @@ if uploaded_file is not None:
 
 
     
-# decided to try using an altair chart from the streamlit documentation description https://docs.streamlit.io/library/api-reference/charts/st.altair_chart
+    #decided to try using an altair chart from the streamlit documentation description https://docs.streamlit.io/library/api-reference/charts/st.altair_chart
     st.header('Plot of Ticket price paid per age each year')
-
     c = alt.Chart(df).mark_circle().encode(alt.Y('Event Year', scale=alt.Scale(domain=(2019, 2023))),
     x='Age', size='Ticket Price', color='Ticket Price', tooltip=['Age', 'Event Year', 'Ticket Price'])
-
     st.altair_chart(c, use_container_width=True)
 
 
     st.header('Participants sales per gender')
-
     genderTable = df.pivot_table(index='Gender', aggfunc='sum')
     st.dataframe(genderTable)
 
     st.header('Participants Ticket sales per gender')
-
     genderValueTable = df.pivot_table(index='Gender', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
     st.dataframe(genderValueTable)
 
