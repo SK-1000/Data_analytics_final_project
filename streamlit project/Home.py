@@ -26,7 +26,8 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 # headers, titles and text
 st.title("Event Data Analysis Tool")
 st.write("use current trends to visual further opportunities")
-st.text("just input your data and this app will do the rest")
+st.write("Simply input your data and this app will do the rest")
+st.image('./content/cycle.png',width=500)
 
 
 # functions for pages
