@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import plotly_express as px
-# import pickle
-# from pathlib import Path
 import streamlit_authenticator as stauth
 import database as db
 
