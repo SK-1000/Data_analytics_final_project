@@ -7,14 +7,26 @@ import plotly_express as px
 import streamlit_authenticator as stauth
 import database as db
 
-# This widens the space on the page where data is displayed
-st.set_page_config(layout="wide")
+from PIL import Image
+# Loading Image using PIL
+im = Image.open('./content/dudeonbike.jfif')
+# This widens the space on the page where data is displayed and adds and image and title to the tab
+st.set_page_config(layout="wide", page_title="Event Data App", page_icon = im)
+
+#removes the default burger menu
+hide_default_format = """
+       <style>
+       #MainMenu {visibility: hidden; }
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
+
 
 # headers, titles and text
 st.title("Event Data Analysis Tool")
 st.write("use current trends to visual further opportunities")
 st.text("just input your data and this app will do the rest")
-
 
 
 # functions for pages

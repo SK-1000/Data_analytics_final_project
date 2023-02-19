@@ -7,6 +7,14 @@ import matplotlib as mpl
 
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
 
+#removes the default burger menu
+hide_default_format = """
+       <style>
+       #MainMenu {visibility: hidden; }
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
 
 # is file uploaded
 if uploaded_file is not None:
