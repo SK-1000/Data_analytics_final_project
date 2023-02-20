@@ -73,10 +73,13 @@ if uploaded_file is not None:
 
 
     #call functions
-    # display_participant_facts(df, year, month, county, event_name, f'No. of {event_name} Participants', number_format='{:,}')
-    display_participant_facts(df, year, month, county, event_name, f'No. of {event_name} Participants',number_format='{:,}',is_median=True, need_count=True)
-    display_participant_facts(df, year, month, county, event_name, 'Total EUR Profit')
-    display_participant_facts(df, year, month, county, event_name, 'Median EUR Profit',is_median=True)
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        display_participant_facts(df, year, month, county, event_name, f'No. of {event_name} Participants',number_format='{:,}',is_median=True, need_count=True)
+    with col2:
+        display_participant_facts(df, year, month, county, event_name, 'Total EUR Profit')
+    with col3:
+        display_participant_facts(df, year, month, county, event_name, 'Median EUR Profit',is_median=True)
    
 
 
