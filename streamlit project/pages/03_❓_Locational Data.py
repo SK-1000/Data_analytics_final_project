@@ -34,5 +34,12 @@ if uploaded_file is not None:
     st.header('Counties by Participant Count per Age Category')
     AgeCatCountPerYearTable = df.assign(count=1).pivot_table(index='County', columns = 'Age Category', values='count', aggfunc='sum', fill_value=0)
     st.dataframe(AgeCatCountPerYearTable)
+
+
+    df = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon'])
+
+    st.map(df)
 else:
     st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")

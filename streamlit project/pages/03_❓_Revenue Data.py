@@ -59,7 +59,6 @@ if uploaded_file is not None:
 
     fig16 = plt.figure(figsize=(8,8))
     plt.matshow(corr, cmap='RdBu', fignum=fig16.number)
-    #need to figure out how to add labels to this correlation chart
     st.pyplot(fig16)
 
     st.header('Ticket Price paid per order date')
