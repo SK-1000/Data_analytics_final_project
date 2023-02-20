@@ -5,6 +5,8 @@ import numpy as np
 import matplotlib as mpl
 import altair as alt
 
+
+
 #removes the default burger menu
 hide_default_format = """
        <style>
@@ -26,11 +28,30 @@ if uploaded_file is not None:
     st.dataframe(ageCategoryBreakdown)
 
 
+    st.header('Age Category Per Gender')
+    ageCatPerGenderTable = df.assign(count=1).pivot_table(index='Age Category', columns = 'Gender', values='count', aggfunc='sum', fill_value=0)
+    # genderCountPerEventTable.plot(kind='bar')
+    st.dataframe(ageCatPerGenderTable)
+
+    st.header('Age Category Per Event')
+    ageCatPerEventTable = df.assign(count=1).pivot_table(index='Age Category', columns = 'Event Name', values='count', aggfunc='sum', fill_value=0)
+    # genderCountPerEventTable.plot(kind='bar')
+    st.dataframe(ageCatPerEventTable)
+
+
+
+    st.header('Participants Age Category per Annum')
+    AgeCatCountPerYearTable = df.assign(count=1).pivot_table(index='Event Year', columns = 'Age Category', values='count', aggfunc='sum', fill_value=0)
+    st.dataframe(AgeCatCountPerYearTable)
+
+
+    st.header('Participants Age Category per Race Distance')
+    AgeCatCountPerDistTable = df.assign(count=1).pivot_table(index='TicketType', columns = 'Age Category', values='count', aggfunc='sum', fill_value=0)
+    st.dataframe(AgeCatCountPerDistTable)
+
     st.header ('Age Category Profit')
     ax = df[['Profit Per Ticket', 'Age Category']].boxplot(by='Age Category',figsize=(10,6))
     ax.set_ylabel('Profit')
-    
-
 
     fig16, ax = plt.subplots()  # Create a figure containing a single axes.
     df['Age Category'].value_counts().plot(kind='pie', figsize=(6,6) )
@@ -50,18 +71,5 @@ if uploaded_file is not None:
     c = alt.Chart(df).mark_circle().encode(alt.Y('Event Year', scale=alt.Scale(domain=(2019, 2023))),
     x='Age', size='Ticket Price', color='Ticket Price', tooltip=['Age', 'Event Year', 'Ticket Price'])
     st.altair_chart(c, use_container_width=True)
-
-
-    st.header('Participants sales per gender')
-    genderTable = df.pivot_table(index='Gender', aggfunc='sum')
-    st.dataframe(genderTable)
-
-    st.header('Participants Ticket sales per gender')
-    genderValueTable = df.pivot_table(index='Gender', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
-    st.dataframe(genderValueTable)
-
-    st.header('Participants Ticket sales per gender per Race')
-    genderValuePerEventTable = df.pivot_table(index='Gender', columns='Event Name', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
-    st.dataframe(genderValuePerEventTable)
 else:
     st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")

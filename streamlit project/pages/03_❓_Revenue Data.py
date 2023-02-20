@@ -21,12 +21,25 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
 
-
+    totalTicketAmountPaid = (df['Total Price Paid Per Ticket'].sum())
+    st.write("The Total Amount paid on tickets based on this file is:")
+    st.write(totalTicketAmountPaid)
 
     st.header('Ticket Sales per race')
+    ticketPricePerRaceTable = df.pivot_table(index='Event Name', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
+    st.dataframe(ticketPricePerRaceTable)
 
-    genderValueTable = df.pivot_table(index='Event Name', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
-    st.dataframe(genderValueTable)
+    st.header('Profit per race')
+    profitPerRaceTable = df.pivot_table(index='Event Name', values=['Profit Per Ticket'], aggfunc='sum')
+    st.dataframe(profitPerRaceTable)
+
+    st.header('Ticket Sales per Age Category')
+    ticketPricePerAgeTable = df.pivot_table(index='Age Category', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
+    st.dataframe(ticketPricePerAgeTable)
+
+    st.header('Profit per Age Category')
+    profitPerAgeTable = df.pivot_table(index='Age Category', values=['Profit Per Ticket'], aggfunc='sum')
+    st.dataframe(profitPerAgeTable)
 
     st.header('Average Price Paid per ticket')
 
@@ -34,41 +47,24 @@ if uploaded_file is not None:
     AvgPricePerTicketPlot = df['Total Price Paid Per Ticket'].plot(kind='box', vert=False, figsize=(14,6))
     st.pyplot(fig15)
 
+    st.header('Details of Ticket Prices')
+
     AvgPricePerTicket = df['Total Price Paid Per Ticket'].describe()
     st.dataframe(AvgPricePerTicket)
 
     
-    st.header('correlation between age year and ticket prices')
+    st.header('Correlation between age year and ticket prices')
     corr =df[['Age','Event Year', 'Ticket Price','Total Price Paid Per Ticket','Ticket Fee','Discount Amount','Additional Purchases Total Paid', 'Raised']].corr()
     st.dataframe(corr)
-
-    st.header('Ticket Price paid per order date')
-    st.line_chart(df, x="Order Timestamp", y="Ticket Price")
 
     fig16 = plt.figure(figsize=(8,8))
     plt.matshow(corr, cmap='RdBu', fignum=fig16.number)
     #need to figure out how to add labels to this correlation chart
     st.pyplot(fig16)
 
+    st.header('Ticket Price paid per order date')
+    st.line_chart(df, x="Order Timestamp", y="Ticket Price")
 
-
-
-
-
-
-    st.header('Participants sales per gender')
-
-    genderTable = df.pivot_table(index='Gender', aggfunc='sum')
-    st.dataframe(genderTable)
-
-    st.header('Participants Ticket sales per gender')
-
-    genderValueTable = df.pivot_table(index='Gender', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
-    st.dataframe(genderValueTable)
-
-    st.header('Participants Ticket sales per gender per Race')
-    genderValuePerEventTable = df.pivot_table(index='Gender', columns='Event Name', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
-    st.dataframe(genderValuePerEventTable)
 else:
     st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
 

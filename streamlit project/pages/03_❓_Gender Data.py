@@ -44,7 +44,7 @@ if uploaded_file is not None:
     st.dataframe(genderTable)
 
 
-    st.header('DUNNO YET')
+    st.header('Participant count per Cycle')
     eventGenderTable = df.pivot_table(index='Event Name', values=['Gender'], aggfunc='count')
     st.dataframe(eventGenderTable)
 
@@ -54,6 +54,7 @@ if uploaded_file is not None:
     genderBreakPerCycles = df.groupby(['Event Name'])['Gender'].value_counts().plot(kind='pie')
     st.pyplot(fig10)
 
+    st.header('Trend Per Gender Per Year')
 
     # make data
     x = df['Event Year']
@@ -71,7 +72,7 @@ if uploaded_file is not None:
     st.pyplot(fig12)
 
 
-    st.header('Most Frequent Gender')
+    st.header('Gender Overview')
     gender1Table = df['Gender'].describe()
     st.dataframe(gender1Table)
 
@@ -85,8 +86,19 @@ if uploaded_file is not None:
     st.dataframe(genderValueTable)
 
     st.header('Participants Ticket sales per gender per Race')
-    genderValuePerEventTable = df.pivot_table(index='Gender', columns='Event Name', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
+    genderValuePerEventTable = df.pivot_table(index='Gender', columns='Event Name', values=['Ticket Price'], aggfunc='sum')
     st.dataframe(genderValuePerEventTable)
+
+
+    st.header('Participants Count per gender per Race')
+    genderCountPerEventTable = df.assign(count=1).pivot_table(index='Event Name', columns = 'Gender', values='count', aggfunc='sum', fill_value=0)
+    # genderCountPerEventTable.plot(kind='bar')
+    st.dataframe(genderCountPerEventTable)
+
+    st.header('Participants Count per gender per Annum')
+    genderCountPerYearTable = df.assign(count=1).pivot_table(index='Event Year', columns = 'Gender', values='count', aggfunc='sum', fill_value=0)
+    st.dataframe(genderCountPerYearTable)
+    
 
 else:
     st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
