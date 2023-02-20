@@ -22,11 +22,10 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
 
-
     st.header('Participants Age Category per Annum')
     AgeCatCountPerYearTable = df.assign(count=1).pivot_table(index='Event Year', columns = 'Age Category', values='count', aggfunc='sum', fill_value=0)
     st.dataframe(AgeCatCountPerYearTable)
-    
+    #test
     st.header('Counties by Participant Count')
     AgeCatCountPerYearTable = df.assign(count=1).pivot_table(index='County', values='count', aggfunc='sum', fill_value=0)
     st.dataframe(AgeCatCountPerYearTable)
