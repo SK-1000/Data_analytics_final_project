@@ -5,6 +5,43 @@ import pandas as pd
 import numpy as np
 import matplotlib as mpl
 
+
+
+PAGE_TITLE = 'Participant Booking Info Per County'
+PAGE_SUB_TITLE = 'Source: Inputted Data file'
+
+    #filter participants by year,month, county and event name
+# def display_participant_count_facts(df, year, month, county, event_name, metric_title, number_format='{:,}'):
+#     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month) & (df['Event Name'] == event_name)]
+#     if county:
+#         df = df[df['County'] == county]
+
+#     total = len(df.index) #counts number of rows
+#     st.metric(metric_title, number_format.format(round(total)))
+
+
+def display_participant_facts(df, year, month, county, event_name, metric_title, number_format='€{:,}', is_median =False, need_count=False): #added a variable for euro
+    df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month) & (df['Event Name'] == event_name)]
+    if county:
+        df = df[df['County'] == county]
+    if is_median:
+        total = df[field_name].median() #gives median profit
+    else:
+        total = df[field_name].sum() #sums profit
+    if need_count:
+        total = len(df.index) #counts number of rows
+    st.metric(metric_title, number_format.format(round(total)))
+
+
+def main():
+    st.set_page_config(PAGE_TITLE)
+    st.title(PAGE_TITLE)
+    st.caption(PAGE_SUB_TITLE)
+
+#call main function
+if __name__ == "__main__":
+    main()
+
 #removes the default burger menu
 hide_default_format = """
        <style>
@@ -16,11 +53,65 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
 
-
+# load data
 # is file uploaded
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
+
+
+#exploring data
+
+
+    year = 2021
+    month = 'January'
+    county = ''
+    event_name = 'Cycle Waterford'
+    field_name = 'Profit Per Ticket'
+    metric_title = f'No. of {event_name} Participants' #Included the event name variable
+
+
+
+    #call functions
+    # display_participant_facts(df, year, month, county, event_name, f'No. of {event_name} Participants', number_format='{:,}')
+    display_participant_facts(df, year, month, county, event_name, f'No. of {event_name} Participants',number_format='{:,}',is_median=True, need_count=True)
+    display_participant_facts(df, year, month, county, event_name, 'Total EUR Profit')
+    display_participant_facts(df, year, month, county, event_name, 'Median EUR Profit',is_median=True)
+   
+
+
+
+    st.write(df.shape)
+    st.write(df.head())
+    st.write(df.columns)
+   
+#display filters and map
+
+
+
+#display metrics
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     st.header('Participants Age Category per Annum')
     AgeCatCountPerYearTable = df.assign(count=1).pivot_table(index='Event Year', columns = 'Age Category', values='count', aggfunc='sum', fill_value=0)
