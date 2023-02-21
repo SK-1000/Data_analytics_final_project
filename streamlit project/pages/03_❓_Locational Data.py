@@ -9,6 +9,7 @@ from streamlit_folium import st_folium
 
 
 
+
 PAGE_TITLE = 'Participant Counts and Profit Metrics'
 PAGE_SUB_TITLE = 'Source: Inputted Data file'
 
@@ -38,8 +39,16 @@ def display_participant_facts(df, year, month, county, event_name, metric_title,
 def display_map(df, year, month):
     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month)]
 
-    map = folium.Map() # calling the map class from the folium library
-    st_map = st_folium(map)
+    map = folium.Map(location=[53.393075, -7.742133], zoom_start=7, scrollWheelZoom=False, tiles='cartoDB positron') # calling the map class from the folium library. Coordinates are centre of Ireland and disabled scroll wheel
+
+
+    choropleth = folium.Choropleth(
+        geo_data='data/Counties.geojson.txt'
+    )
+    choropleth.geojson.add_to(map)
+
+    st_map = st_folium(map, width=700, height=450) #return the map object into the streamlit folium library to display map
+
     st.write(df.shape)
     st.write(df.head())
 
