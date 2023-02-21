@@ -4,10 +4,12 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import matplotlib as mpl
+import folium
+from streamlit_folium import st_folium
 
 
 
-PAGE_TITLE = 'Participant Booking Info Per County'
+PAGE_TITLE = 'Participant Counts and Profit Metrics'
 PAGE_SUB_TITLE = 'Source: Inputted Data file'
 
     #filter participants by year,month, county and event name
@@ -31,6 +33,16 @@ def display_participant_facts(df, year, month, county, event_name, metric_title,
     if need_count:
         total = len(df.index) #counts number of rows
     st.metric(metric_title, number_format.format(round(total)))
+
+
+def display_map(df, year, month):
+    df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month)]
+
+    map = folium.Map() # calling the map class from the folium library
+    st_map = st_folium(map)
+    st.write(df.shape)
+    st.write(df.head())
+
 
 
 def main():
@@ -60,18 +72,17 @@ if uploaded_file is not None:
     st.session_state['df'] = df
 
 
-#exploring data
-
-
+#filterable variables
     year = 2021
     month = 'January'
     county = ''
-    event_name = 'Cycle Waterford'
+    event_name = 'Cycle Kerry'
     field_name = 'Profit Per Ticket'
     metric_title = f'No. of {event_name} Participants' #Included the event name variable
 
 
-
+#display metrics
+    st.subheader(f'{event_name} Metrics')
     #call functions
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -83,6 +94,7 @@ if uploaded_file is not None:
    
 
 
+#exploring data
 
     st.write(df.shape)
     st.write(df.head())
@@ -90,9 +102,10 @@ if uploaded_file is not None:
    
 #display filters and map
 
+    display_map(df, year, month)
 
 
-#display metrics
+
 
 
 
