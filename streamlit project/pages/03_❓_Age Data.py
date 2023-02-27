@@ -1,3 +1,4 @@
+from os import truncate
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -26,16 +27,31 @@ if uploaded_file is not None:
     st.header('Age Category breakdown')
     ageCategoryBreakdown = df['Age Category'].value_counts()       
     st.dataframe(ageCategoryBreakdown)
+    st.bar_chart(ageCategoryBreakdown)
 
 
+    st.header('Age Stats')
+    #rounded age stats values with pandas .round function and removed the zeros after the decimal with .astype(int)
+    ageStats = df['Age'].describe().round().astype(int)
+    st.dataframe(ageStats)
+  
     st.header('Age Category Per Gender')
     ageCatPerGenderTable = df.assign(count=1).pivot_table(index='Age Category', columns = 'Gender', values='count', aggfunc='sum', fill_value=0)
-    # genderCountPerEventTable.plot(kind='bar')
     st.dataframe(ageCatPerGenderTable)
+
+    
+    st.header('Ages')
+    #The majority of participants are between the ages of approx 35 and 65 with a few outliers
+    fig, ax = plt.subplots()
+    df['Age'].plot(kind='box', vert=False, figsize=(14,6))
+    st.pyplot(fig)
+
+
+
+    
 
     st.header('Age Category Per Event')
     ageCatPerEventTable = df.assign(count=1).pivot_table(index='Age Category', columns = 'Event Name', values='count', aggfunc='sum', fill_value=0)
-    # genderCountPerEventTable.plot(kind='bar')
     st.dataframe(ageCatPerEventTable)
 
 

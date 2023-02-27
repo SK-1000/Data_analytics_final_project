@@ -37,20 +37,48 @@ def display_participant_facts(df, year, month, county, event_name, metric_title,
 
 
 def display_map(df, year, month):
+
+    # st.header('Counties by Participant Count')
+    # df = df.assign(count=1).pivot_table(index=('County', 'Booking Year', 'Booking Month'), values='count', aggfunc='sum', fill_value=0)
+    # st.dataframe(df)
+
+
+
+
+
     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month)]
-
+  
+   
     map = folium.Map(location=[53.393075, -7.742133], zoom_start=7, scrollWheelZoom=False, tiles='cartoDB positron') # calling the map class from the folium library. Coordinates are centre of Ireland and disabled scroll wheel
-
-
+    
+   
     choropleth = folium.Choropleth(
-        geo_data='data/Counties.geojson.txt'
+        geo_data='data/Counties.geojson.txt',
+        data=df,
+        columns=('County', 'Age'),
+        key_on='feature.properties.COUNTY',
+        line_opacity=0.7,
+        line_color='blue',
+        highlight=True
     )
     choropleth.geojson.add_to(map)
+   
+    # df = df.set_index('County')
+    # totalcounts = len(df.index) #counts number of rows 
+    # st.write(df.loc[county])
+    
 
+
+    for feature in choropleth.geojson.data['features']:
+        feature['properties']['participants'] = 'PARTICIPANTS: 100'
+
+    choropleth.geojson.add_child(
+        folium.features.GeoJsonTooltip(['COUNTY', 'PROVINCE', 'participants'])
+    )
     st_map = st_folium(map, width=700, height=450) #return the map object into the streamlit folium library to display map
 
-    st.write(df.shape)
-    st.write(df.head())
+    # st.write(df.shape)
+    # st.write(df.head())
 
 
 
@@ -105,9 +133,9 @@ if uploaded_file is not None:
 
 #exploring data
 
-    st.write(df.shape)
-    st.write(df.head())
-    st.write(df.columns)
+    # st.write(df.shape)
+    # st.write(df.head())
+    # st.write(df.columns)
    
 #display filters and map
 
