@@ -33,7 +33,7 @@ if uploaded_file is not None:
     profitPerRaceTable = df.pivot_table(index='Event Name', values=['Profit Per Ticket'], aggfunc='sum')
     st.dataframe(profitPerRaceTable)
 
-    
+    #REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
 
     st.header('Ticket Sales per Age Category')
     ticketPricePerAgeTable = df.pivot_table(index='Age Category', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')

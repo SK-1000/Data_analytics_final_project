@@ -77,7 +77,7 @@ if uploaded_file is not None:
     st.dataframe(gender1Table)
 
 
-
+#REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
 
 
 

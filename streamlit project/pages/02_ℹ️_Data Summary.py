@@ -11,7 +11,7 @@ hide_default_format = """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
-
+#REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
 
 # is file uploaded
 if uploaded_file is not None:
@@ -29,7 +29,16 @@ if uploaded_file is not None:
     #search fuctionality using text_input functionality and df.loc
     input = st.text_input('Enter the surname of the participant you would like to search For')
     df.loc[df['Last Name'] == input ] 
+    df['Order Timestamp'] = pd.to_datetime(df['Order Timestamp'])  #changing the order timestamp to be correct format
     
+    inputDate = st.text_input('Enter Order Date to see all order on that date (format required'"2020-09-13"'')
+    df.set_index('Order Timestamp', inplace=True) #changed the index to the order timestamp
+    df.loc[df.index == inputDate ] 
+    # I would like to add validation so that for both search boxes if not thing is required leave a message
+    
+    
+
+
 
 else:
     st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")

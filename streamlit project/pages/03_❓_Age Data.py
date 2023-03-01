@@ -24,6 +24,10 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
 
+
+    #REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
+
+    
     st.header('Age Category breakdown')
     ageCategoryBreakdown = df['Age Category'].value_counts()       
     st.dataframe(ageCategoryBreakdown)
