@@ -23,7 +23,9 @@ uploaded_file = st.sidebar.file_uploader('Upload your file here')
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
-   
+    df['Order Timestamp'] = pd.to_datetime(df['Order Timestamp'])  #changing the order timestamp to be correct format
+    
+    
 
     totalRaised = (df['Raised'].sum())
     formatTotalRaised = "€{:,.2f}".format(totalRaised)
