@@ -19,13 +19,26 @@ hide_default_format = """
        </style>
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
+#This allows me to centre the headings and text in the col2
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.write(' ')
+
+with col2:
+    # headers, titles and text
+    st.markdown("<h1 style='text-align: center; color: White;'>Event Data Analysis Tool</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: White;'>Use current trends to visual further opportunities</h3>", unsafe_allow_html=True)
+    st.markdown("<h5 style='text-align: center; color: White;'>Simply input your data and this app will do the rest</h5>", unsafe_allow_html=True)
+    # st.write("Use current trends to visual further opportunities")
+    # st.write("Simply input your data and this app will do the rest")
+    st.image('./content/cycle.png',width=500)
+    
+
+with col3:
+    st.write(' ')
 
 
-# headers, titles and text
-st.title("Event Data Analysis Tool")
-st.write("Use current trends to visual further opportunities")
-st.write("Simply input your data and this app will do the rest")
-st.image('./content/cycle.png',width=500)
 
 
 # functions for pages
@@ -35,37 +48,11 @@ def home(uploaded_file):
     else:
         st.header('To start please upload a file')
 
-# def stats(dataframe):
-#     st.header('Data Statistics')
-#     st.write(dataframe.describe())
 
-# def data_header(dataframe):
-#     st.header ('Data Header')
-#     st.write(dataframe.head())
-
-# def plot(dataframe):
-#     fig, ax = plt.subplots(1,1)
-#     ax.scatter(x=df['Order Timestamp'], y=df['Total Price Paid Per Ticket'])
-#     ax.set_xlabel('Order Timestamp')
-#     ax.set_ylabel('Total Price Paid Per Ticket')
-
-#     st.pyplot(fig)
-
-
-# def interactive_plot(dataframe):
-#     x_axis_val = st.selectbox('Select X-Axis Value', options=df.columns)
-#     y_axis_val = st.selectbox('Select Y-Axis Value', options=df.columns)
-#     col = st.color_picker('Pick a Plot Colour')
-
-
-#     plot = px.scatter(dataframe, x=x_axis_val, y=y_axis_val)
-#     plot.update_traces(marker=dict(color=col))
-#     st.plotly_chart(plot)
 
 
 
 #sidebar code
-
 st.sidebar.title('Navigation')
 
 
@@ -78,16 +65,6 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
 else:
-    st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+    # st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+    st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
     
-
-
-# # Navigation
-# if options == 'Data Statistics':
-#     stats(df)
-# elif options == 'Data Header':
-#     data_header(df)
-# elif options == 'Plot':
-#     plot(df)
-# elif options == 'Interactive Plot':
-#     interactive_plot(df)
