@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib as mpl
+
 #removes the default burger menu
 hide_default_format = """
        <style>
@@ -36,7 +39,18 @@ if uploaded_file is not None:
     df.loc[df.index == inputDate ] 
     # I would like to add validation so that for both search boxes if not thing is required leave a message
     
-    
+  
+
+
+
+    st.header ('Plotting orders per date')
+    fig1, ax = plt.subplots(figsize=(12,6), layout='constrained')
+    dates = df.index
+    # data = df['barcode'].value_counts
+    data = np.cumsum(np.random.randn(len(dates)))
+
+  
+
 
 
 

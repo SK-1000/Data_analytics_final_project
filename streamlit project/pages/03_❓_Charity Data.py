@@ -1,10 +1,10 @@
-
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import matplotlib as mpl
+import plotly.express as px
+
 
 #removes the default burger menu
 hide_default_format = """
@@ -24,7 +24,7 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
 
-    df['Order Timestamp'] = pd.to_datetime(df['Order Timestamp'])  #changing the order timestamp to be correct format
+    
     
     
     
@@ -49,7 +49,20 @@ if uploaded_file is not None:
     st.write("Last Name:")
     st.dataframe(maxAmountRaised2)
   
-    
+    year_choice = df['Booking Year'].unique().tolist()
+    # year = st.selectbox('Select a Year', year_choice, 0) #default is zero
+    # df = df[df['Booking Year']==year] # filter the data based on the year
+
+
+    fig = px.scatter(df, x="Raised", y="Age", size="Profit Per Ticket", color="Event Name", hover_name="Event Name", log_x=True, size_max=55, range_x=[5,10000],
+    range_y=[14,110], animation_frame="Booking Year", animation_group="County")
+
+    fig.update_layout(width=800)
+    st.write(fig)
+
+
+
+
 
     st.header('Amount Raised per Charity')
     raisedPerCharityTable = df.pivot_table(index='Charity', values=['Raised'], aggfunc='sum')

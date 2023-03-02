@@ -27,11 +27,15 @@ if uploaded_file is not None:
 
     #REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
 
-    
+
     st.header('Age Category breakdown')
     ageCategoryBreakdown = df['Age Category'].value_counts()       
     st.dataframe(ageCategoryBreakdown)
     st.bar_chart(ageCategoryBreakdown)
+
+    
+
+
 
 
     st.header('Age Stats')
