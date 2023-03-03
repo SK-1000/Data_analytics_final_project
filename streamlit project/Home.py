@@ -1,3 +1,5 @@
+# Author Sheila Kirwan
+# This is the home page of my python streamlit app. It contains markdown with html formatting, streamlit components such as st.write and st.sidebar, st.sidebar.fileuploader to name a few.
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -19,7 +21,8 @@ hide_default_format = """
        </style>
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
-#This allows me to centre the headings and text in the col2
+
+#These columns allow me to centre the headings and text in the col2
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -30,35 +33,15 @@ with col2:
     st.markdown("<h1 style='text-align: center; color: White;'>Event Data Analysis Tool</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: White;'>Use current trends to visual further opportunities</h3>", unsafe_allow_html=True)
     st.markdown("<h5 style='text-align: center; color: White;'>Simply input your data and this app will do the rest</h5>", unsafe_allow_html=True)
-    # st.write("Use current trends to visual further opportunities")
-    # st.write("Simply input your data and this app will do the rest")
     st.image('./content/cycle.png',width=500)
     
-
 with col3:
     st.write(' ')
-
-
-
-
-# functions for pages
-def home(uploaded_file):
-    if uploaded_file:
-        st.header('Explore using the navigation menu on the left')
-    else:
-        st.header('To start please upload a file')
-
-
-
-
 
 #sidebar code
 st.sidebar.title('Navigation')
 
-
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
-# options = st.sidebar.radio('Pages', options=['Home', 'Data Statistics', 'Data Header', 'Plot', 'Interactive Plot'])
-
 
 # is file uploaded
 if uploaded_file is not None:
