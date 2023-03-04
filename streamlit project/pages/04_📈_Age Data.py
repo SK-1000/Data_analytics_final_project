@@ -1,3 +1,6 @@
+#Author Sheila Kirwan
+#This page contains age related pivot tables and charts
+
 from os import truncate
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -6,7 +9,8 @@ import numpy as np
 import matplotlib as mpl
 import altair as alt
 
-
+pageSubTitle = 'Source: Inputted Data file'
+st.markdown("<h1 style='text-align: center; color: white;'>Participant Age Insights</h1>", unsafe_allow_html=True)
 
 #removes the default burger menu
 hide_default_format = """
@@ -23,31 +27,70 @@ uploaded_file = st.sidebar.file_uploader('Upload your file here')
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     st.session_state['df'] = df
+    st.caption(pageSubTitle)
 
 
     #REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
-
+    
 
     st.header('Age Category breakdown')
     ageCategoryBreakdown = df['Age Category'].value_counts()       
-    st.dataframe(ageCategoryBreakdown)
+    st.dataframe(ageCategoryBreakdown, use_container_width=True)
     st.bar_chart(ageCategoryBreakdown)
 
     
 
+    left, right = st.columns(2)
+    with right:
 
 
-
-    st.header('Age Stats')
-    #rounded age stats values with pandas .round function and removed the zeros after the decimal with .astype(int)
-    ageStats = df['Age'].describe().round().astype(int)
-    st.dataframe(ageStats)
+        st.header('Age Stats')
+        #rounded age stats values with pandas .round function and removed the zeros after the decimal with .astype(int)
+        ageStats = df['Age'].describe().round().astype(int)
+        st.dataframe(ageStats, use_container_width=True)
   
-    st.header('Age Category Per Gender')
-    ageCatPerGenderTable = df.assign(count=1).pivot_table(index='Age Category', columns = 'Gender', values='count', aggfunc='sum', fill_value=0)
-    st.dataframe(ageCatPerGenderTable)
 
+    with left:
+        st.header('Age Category Per Gender')
+        ageCatPerGenderTable = df.assign(count=1).pivot_table(index='Age Category', columns = 'Gender', values='count', aggfunc='sum', fill_value=0)
+        st.dataframe(ageCatPerGenderTable, use_container_width=True)
+
+
+    #using matplot lib to plot a pie chart per gender for each Age Category
+
+    df2 = ageCatPerGenderTable
+    st.dataframe(df2)
+
+    firstAgeCat = df2.loc[['16-35 Group'],['male','female']]
+    df3 = firstAgeCat
+    st.dataframe(df3)
     
+
+    male = df3.iloc[0,0]
+    st.write(male)
+    female = df3.iloc[0,1]
+    st.write(female)
+    
+    labels = 'male', 'female'
+    sizes = [male, female]
+
+    fig, ax = plt.subplots()
+    ax.pie(sizes, labels = labels, autopct='%1.1f%%')
+    st.pyplot(fig)
+
+
+
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric(label = 'Average Age', value =df['Age'].mean().round().astype(int))
+    with col2:
+        st.metric(label = 'Maximum Age', value =df['Age'].max())
+    with col3:
+        st.metric(label = 'Maximum Age', value =df['Age'].min())
+
+
+
     st.header('Ages')
     #The majority of participants are between the ages of approx 35 and 65 with a few outliers
     fig, ax = plt.subplots()

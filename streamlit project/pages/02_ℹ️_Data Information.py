@@ -37,7 +37,7 @@ if uploaded_file is not None:
 
     @st.cache
     def convert_df(df2):
-        # NB The Cache Memorises the function so that resources and wasted on every run
+        # NB The Cache Memorises the function so that resources are not wasted by downloading on every run
         return df2.to_csv().encode('utf-8')
 
     csv = convert_df(df2)

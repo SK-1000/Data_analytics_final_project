@@ -42,7 +42,7 @@ if uploaded_file is not None:
     
     @st.cache
     def convert_df(searchResultName):
-        # IMPORTANT: Cache the conversion to prevent computation on every rerun
+           # NB The Cache Memorises the function so that resources are not wasted by downloading on every run
         return searchResultName.to_csv().encode('utf-8')
 
     csv = convert_df(searchResultName)
@@ -64,7 +64,7 @@ if uploaded_file is not None:
 
     @st.cache
     def convert_df(searchResultDate):
-        # IMPORTANT: Cache the conversion to prevent computation on every rerun
+          # NB The Cache Memorises the function so that resources are not wasted by downloading on every run
         return searchResultDate.to_csv().encode('utf-8')
 
     csv1 = convert_df(searchResultDate)
