@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly_express as px
 import streamlit_authenticator as stauth
-import database as db
+
 
 from PIL import Image
 # Loading Image using PIL
