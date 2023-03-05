@@ -8,6 +8,8 @@ import pandas as pd
 import numpy as np
 import matplotlib as mpl
 import altair as alt
+import seaborn as sns
+sns.set_theme(style="whitegrid")
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Participant Age Insights</h1>", unsafe_allow_html=True)
@@ -57,28 +59,58 @@ if uploaded_file is not None:
 
 
     #using matplot lib to plot a pie chart per gender for each Age Category
-
+    # started with dataframe of Age Category as index and male and female counts for each
     df2 = ageCatPerGenderTable
-    st.dataframe(df2)
-
+    
+    # created new dataframe with just the first row of the last dataframe
     firstAgeCat = df2.loc[['16-35 Group'],['male','female']]
     df3 = firstAgeCat
-    st.dataframe(df3)
+    secondAgeCat = df2.loc[['36-56 Group'],['male','female']]
+    df4 = secondAgeCat
+    thirdAgeCat = df2.loc[['57-77 Group'],['male','female']]
+    df5 = thirdAgeCat
+    
+    fourthAgeCat = df2.loc[['Masters'],['male','female']]
+    df6 = fourthAgeCat
+    
+    # selected only the values for male and female 
+    male = df3.iloc[0,0]
+   
+    female = df3.iloc[0,1]
+  
+
+    male4 = df4.iloc[0,0]
+   
+    female4 = df4.iloc[0,1]
+   
+
+    male5 = df5.iloc[0,0]
+   
+    female5 = df5.iloc[0,1]
     
 
-    male = df3.iloc[0,0]
-    st.write(male)
-    female = df3.iloc[0,1]
-    st.write(female)
+    male6 = df6.iloc[0,0]
+ 
+    female6 = df6.iloc[0,1]
+  
     
     labels = 'male', 'female'
     sizes = [male, female]
+    sizes4 = [male4, female4]
+    sizes5 = [male5, female5]
+    sizes6 = [male6, female6]
 
-    fig, ax = plt.subplots()
-    ax.pie(sizes, labels = labels, autopct='%1.1f%%')
+
+    fig, axs = plt.subplots(2,2)
+    axs[0,0].set_title('16-35 Group')
+    axs[0,0].pie(sizes, labels = labels, autopct='%1.1f%%')
+    axs[0,1].set_title('36-56 Group')
+    axs[0,1].pie(sizes4, labels = labels, autopct='%1.1f%%')
+    axs[1,0].set_title('57-77 Group')
+    axs[1,0].pie(sizes5, labels = labels, autopct='%1.1f%%')
+    axs[1,1].set_title('Masters')
+    axs[1,1].pie(sizes6, labels = labels, autopct='%1.1f%%')
     st.pyplot(fig)
-
-
 
 
     col1, col2, col3 = st.columns(3)
@@ -91,20 +123,17 @@ if uploaded_file is not None:
 
 
 
-    st.header('Ages')
+    st.header('Ages Plot Graph')
     #The majority of participants are between the ages of approx 35 and 65 with a few outliers
     fig, ax = plt.subplots()
     df['Age'].plot(kind='box', vert=False, figsize=(14,6))
     st.pyplot(fig)
 
 
-
-    
-
     st.header('Age Category Per Event')
     ageCatPerEventTable = df.assign(count=1).pivot_table(index='Age Category', columns = 'Event Name', values='count', aggfunc='sum', fill_value=0)
-    st.dataframe(ageCatPerEventTable)
-
+    st.dataframe(ageCatPerEventTable, use_container_width=True)
+    st.bar_chart(ageCatPerEventTable)
 
 
     st.header('Participants Age Category per Annum')
