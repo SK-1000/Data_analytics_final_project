@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import plotly_express as px
 import streamlit_authenticator as stauth
 
-
 from PIL import Image
 # Loading Image using PIL
 im = Image.open('./content/dudeonbike.jfif')
@@ -24,23 +23,19 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 
 #These columns allow me to centre the headings and text in the col2
 col1, col2, col3 = st.columns(3)
-
 with col1:
     st.write(' ')
-
 with col2:
     # headers, titles and text
     st.markdown("<h1 style='text-align: center; color: White;'>Event Data Analysis Tool</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: White;'>Use current trends to visual further opportunities</h3>", unsafe_allow_html=True)
     st.markdown("<h5 style='text-align: center; color: White;'>Simply input your data and this app will do the rest</h5>", unsafe_allow_html=True)
     st.image('./content/cycle.png',width=500)
-    
 with col3:
     st.write(' ')
 
 #sidebar code
 st.sidebar.title('Navigation')
-
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
 
 # is file uploaded
