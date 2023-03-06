@@ -12,7 +12,7 @@ im = Image.open('./content/dudeonbike.jfif')
 # This widens the space on the page where data is displayed and adds and image and title to the tab
 st.set_page_config(layout="wide", page_title="Event Data App", page_icon = im)
 
-#removes the default burger menu
+#removes the default hamburger menu
 hide_default_format = """
        <style>
        #MainMenu {visibility: hidden; }
