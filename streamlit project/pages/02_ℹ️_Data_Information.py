@@ -9,9 +9,6 @@ st.markdown("<h1 style='text-align: center; color: white;'>Data Information</h1>
 
 
 
-# df = st.session_state['df'] 
-
-
 
 
 #removes the default burger menu
@@ -22,6 +19,8 @@ hide_default_format = """
        </style>
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
+
+
 
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
 
