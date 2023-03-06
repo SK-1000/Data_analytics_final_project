@@ -40,7 +40,7 @@ if uploaded_file is not None:
     df['Order Timestamp'] = pd.to_datetime(df['Order Timestamp'])  #changing the order timestamp to be correct format
     searchResultName = df.loc[df['Last Name'] == input ] 
     
-    @st.cache
+    @st.cache_data # updated to st.cache to st.cache_data as st.cache was depreciated when I upgraded streamlit to version 1.19.0
     def convert_df(searchResultName):
            # NB The Cache Memorises the function so that resources are not wasted by downloading on every run
         return searchResultName.to_csv().encode('utf-8')
@@ -62,7 +62,7 @@ if uploaded_file is not None:
     
     searchResultDate = df.loc[df.index == inputDate ] 
 
-    @st.cache
+    @st.cache_data # updated to st.cache to st.cache_data as st.cache was depreciated when I upgraded streamlit to version 1.19.0
     def convert_df(searchResultDate):
           # NB The Cache Memorises the function so that resources are not wasted by downloading on every run
         return searchResultDate.to_csv().encode('utf-8')

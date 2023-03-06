@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly_express as px
 import pandas as pd
+import sys
 
 #removes the default burger menu
 hide_default_format = """
@@ -11,6 +12,16 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
+
+#double check to ensure my project is inside virtual environment
+def is_venv():
+    return (hasattr(sys, 'real_prefix') or
+            (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix))
+
+if is_venv():
+    print('inside virtualenv or venv')
+else:
+    print('outside virtualenv or venv')
 
 uploaded_file = st.sidebar.file_uploader('Upload your file here')
 

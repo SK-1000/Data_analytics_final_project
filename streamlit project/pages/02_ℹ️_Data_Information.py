@@ -35,7 +35,7 @@ if uploaded_file is not None:
 
     df2 = df.head()
 
-    @st.cache
+    @st.cache_data # updated to st.cache to st.cache_data as st.cache was depreciated when I upgraded streamlit to version 1.19.0
     def convert_df(df2):
         # NB The Cache Memorises the function so that resources are not wasted by downloading on every run
         return df2.to_csv().encode('utf-8')
