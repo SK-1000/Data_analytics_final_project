@@ -2,13 +2,9 @@
 # This streamlit page displays information on the inputted data file.
 import streamlit as st
 import pandas as pd
-
+df = st.session_state['df']
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Data Information</h1>", unsafe_allow_html=True)
-
-
-
-
 
 
 #removes the default burger menu
@@ -22,16 +18,17 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 
 
 
-uploaded_file = st.sidebar.file_uploader('Upload your file here')
+# uploaded_file = st.sidebar.file_uploader('Upload your file here')
 
 
 # is file uploaded
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.session_state['df'] = df
+# if uploaded_file is not None:
+#     df = pd.read_csv(uploaded_file)
+#     st.session_state['df'] = df
+#     st.caption(pageSubTitle)
+
+if df is not None:
     st.caption(pageSubTitle)
-
-
     df2 = df.head()
 
     @st.cache_data # updated to st.cache to st.cache_data as st.cache was depreciated when I upgraded streamlit to version 1.19.0

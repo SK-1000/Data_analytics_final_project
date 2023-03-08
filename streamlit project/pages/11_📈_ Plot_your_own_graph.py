@@ -3,6 +3,9 @@ import plotly_express as px
 import pandas as pd
 import sys
 
+df = st.session_state['df']
+
+
 #removes the default burger menu
 hide_default_format = """
        <style>
@@ -23,14 +26,10 @@ if is_venv():
 else:
     print('outside virtualenv or venv')
 
-uploaded_file = st.sidebar.file_uploader('Upload your file here')
-
 
 # is file uploaded
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.session_state['df'] = df
-
+if df is not None:
+  
     col1, col2 = st.columns(2)
 
     x_axis_val = col1.selectbox('Select X-Axis Value', options=df.columns)

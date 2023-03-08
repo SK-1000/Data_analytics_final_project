@@ -9,6 +9,10 @@ import plotly.express as px
 import datetime as dt
 import plotly.io as pio
 
+
+df = st.session_state['df']
+
+
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Search Event Participant Data</h1>", unsafe_allow_html=True)
 
@@ -21,16 +25,10 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-uploaded_file = st.sidebar.file_uploader('Upload your file here')
-#REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
 
-# is file uploaded
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.session_state['df'] = df
-    st.caption(pageSubTitle)
- 
-    
+if df is not None:
+
+    st.caption(pageSubTitle)   
     #search fuctionality using text_input functionality and df.loc
     input = st.text_input('Enter the surname of the participant you would like to search For', 'Jones')
     # if input not in df:

@@ -11,6 +11,8 @@ import altair as alt
 import seaborn as sns
 sns.set_theme(style="whitegrid")
 
+df = st.session_state['df']
+
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Participant Age Insights</h1>", unsafe_allow_html=True)
 
@@ -23,15 +25,11 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-uploaded_file = st.sidebar.file_uploader('Upload your file here')
+
 
 # is file uploaded
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.session_state['df'] = df
+if df is not None:
     st.caption(pageSubTitle)
-
-
     #REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
     
 

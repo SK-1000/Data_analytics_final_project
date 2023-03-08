@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 import matplotlib as mpl
 
+df = st.session_state['df']
+
 #removes the default burger menu
 hide_default_format = """
        <style>
@@ -14,14 +16,9 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-uploaded_file = st.sidebar.file_uploader('Upload your file here')
-
 
 # is file uploaded
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.session_state['df'] = df
-
+if df is not None:
     st.header('Gender of participants in all Races')
     fig9, ax = plt.subplots()  # Create a figure containing a single axes.
     eventName = df["Event Name"]

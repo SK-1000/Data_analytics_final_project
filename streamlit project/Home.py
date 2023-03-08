@@ -11,12 +11,15 @@ import streamlit_authenticator as stauth
 import yaml
 from yaml.loader import SafeLoader
 import streamlit_authenticator as stauth
+import database as db
+
 
 from PIL import Image
 # Loading Image using PIL
 im = Image.open('./content/dudeonbike.jfif')
 # This widens the space on the page where data is displayed and adds and image and title to the tab
 st.set_page_config(layout="wide", page_title="Event Data App", page_icon = im)
+
 
 with open('./config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
@@ -28,7 +31,6 @@ authenticator = stauth.Authenticate(
     config['cookie']['expiry_days'],
     config['preauthorized']
 )
-
 
 name, authentication_status, username = authenticator.login('Login', 'sidebar')
 
@@ -44,7 +46,6 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 if authentication_status:
     authenticator.logout('Logout', 'sidebar')
     
-
     # hashing passwords for yaml file
     # hashed_passwords = stauth.Hasher(['abc', 'def','ghi']).generate()
     # print(hashed_passwords)
@@ -64,11 +65,8 @@ if authentication_status:
 
     #sidebar code
     with st.sidebar.title('Navigation'):
-        uploaded_file = st.sidebar.file_uploader('Upload your file here')
         st.write(f'Welcome *{name}*')
-
-
-
+        uploaded_file = st.sidebar.file_uploader('Upload your file here')
 
     # is file uploaded
     if uploaded_file is not None:
@@ -82,3 +80,4 @@ elif authentication_status is False:
     st.error('Username/password is incorrect')
 elif authentication_status is None:
     st.warning('Please enter your username and password')
+

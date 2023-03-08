@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 
+df = st.session_state['df']
+
 pageSubTitle = 'Source: Inputted Data file'
 
 #removes the default burger menu
@@ -12,18 +14,15 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-uploaded_file = st.sidebar.file_uploader('Upload your file here')
 
 
-# is file uploaded
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.session_state['df'] = df
+    # is file uploaded
+if df is not None:
     st.markdown("<h1 style='text-align: center; color: white;'>Data Type Information</h1>", unsafe_allow_html=True)
     st.caption(pageSubTitle)
 
 
-    @st.cache
+    @st.cache_data
     def convert_df(df3):
         # NB The Cache Memorises the function so that resources and wasted on every run
         return df3.to_csv().encode('utf-8')

@@ -8,8 +8,7 @@ import folium
 from streamlit_folium import st_folium
 
 
-
-
+df = st.session_state['df']
 PAGE_TITLE = 'Participant Counts and Profit Metrics'
 PAGE_SUB_TITLE = 'Source: Inputted Data file'
 
@@ -22,7 +21,7 @@ PAGE_SUB_TITLE = 'Source: Inputted Data file'
 #     total = len(df.index) #counts number of rows
 #     st.metric(metric_title, number_format.format(round(total)))
 
-
+@st.cache_data
 def display_participant_facts(df, year, month, county, event_name, metric_title, number_format='€{:,}', is_median =False, need_count=False): #added a variable for euro
     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month) & (df['Event Name'] == event_name)]
     if county:
@@ -35,20 +34,15 @@ def display_participant_facts(df, year, month, county, event_name, metric_title,
         total = len(df.index) #counts number of rows
     st.metric(metric_title, number_format.format(round(total)))
 
-
+# TEST ADDING A CACHE HERE
 def display_map(df, year, month):
 
     # st.header('Counties by Participant Count')
     # df = df.assign(count=1).pivot_table(index=('County', 'Booking Year', 'Booking Month'), values='count', aggfunc='sum', fill_value=0)
     # st.dataframe(df)
 
-
-
-
-
     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month)]
   
-   
     map = folium.Map(location=[53.393075, -7.742133], zoom_start=7, scrollWheelZoom=False, tiles='cartoDB positron') # calling the map class from the folium library. Coordinates are centre of Ireland and disabled scroll wheel
     
    
@@ -83,6 +77,8 @@ def display_map(df, year, month):
 
 
 def main():
+
+   
     st.set_page_config(PAGE_TITLE)
     st.title(PAGE_TITLE)
     st.caption(PAGE_SUB_TITLE)
@@ -100,15 +96,10 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-uploaded_file = st.sidebar.file_uploader('Upload your file here')
 
-# load data
+
 # is file uploaded
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.session_state['df'] = df
-
-
+if df is not None:
 #filterable variables
     year = 2021
     month = 'January'

@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib as mpl
 import plotly.express as px
 
+df = st.session_state['df']
 
 #removes the default burger menu
 hide_default_format = """
@@ -16,19 +17,11 @@ hide_default_format = """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
 
-uploaded_file = st.sidebar.file_uploader('Upload your file here')
-
-
+    
 # is file uploaded
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.session_state['df'] = df
+if df is not None:
 
     
-    
-    
-    
-
     totalRaised = (df['Raised'].sum())
     formatTotalRaised = "€{:,.2f}".format(totalRaised)
     st.write("The total raised for Charity based on this file data is:")

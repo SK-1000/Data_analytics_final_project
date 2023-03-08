@@ -123,7 +123,7 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-upload_to_database.py
+update_to_database.py
 
 # Environments
 .env
@@ -171,5 +171,8 @@ poetry.toml
 
 # ruff
 .ruff_cache/
+
+# LSP config files
+pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
