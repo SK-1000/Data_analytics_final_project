@@ -2,30 +2,22 @@
 # This streamlit page displays information on the inputted data file.
 import streamlit as st
 import pandas as pd
+
 df = st.session_state['df']
+
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Data Information</h1>", unsafe_allow_html=True)
 
 
 #removes the default burger menu
 hide_default_format = """
-       <style>
-       #MainMenu {visibility: hidden; }
-       footer {visibility: hidden;}
-       </style>
-       """
+    <style>
+    #MainMenu {visibility: hidden; }
+    footer {visibility: hidden;}
+    </style>
+    """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-
-
-# uploaded_file = st.sidebar.file_uploader('Upload your file here')
-
-
-# is file uploaded
-# if uploaded_file is not None:
-#     df = pd.read_csv(uploaded_file)
-#     st.session_state['df'] = df
-#     st.caption(pageSubTitle)
 
 if df is not None:
     st.caption(pageSubTitle)
@@ -47,13 +39,13 @@ if df is not None:
     file_name='df.csv',
     mime='text/csv',
 )
-   
+
 
     #creating new dataframe that drops any column with N/A
     df4=df.drop(["Public health measures for COVID-19", "I have read  and agree to abide by the above Public health measures for COVID-19",
-         " understand", " and agree to abide by the above Public health measures for COVID-19", "Privacy Policy", "Refund and Transfer Policy", 
-         "Cycling Ireland Licence Number", "Club", "Rider Category", 'UCI ID', 'Date of Purchase', 'Active Order Number', 'Active CI Member', 'Active CI Number',
-         'Active County', 'Active Mobile', 'Comment', 'Fundraiser Status'], axis = 1)
+        " understand", " and agree to abide by the above Public health measures for COVID-19", "Privacy Policy", "Refund and Transfer Policy", 
+        "Cycling Ireland Licence Number", "Club", "Rider Category", 'UCI ID', 'Date of Purchase', 'Active Order Number', 'Active CI Member', 'Active CI Number',
+        'Active County', 'Active Mobile', 'Comment', 'Fundraiser Status'], axis = 1)
     st.header('Data Statistics')
     
     st.dataframe(df4.describe())
@@ -71,13 +63,13 @@ if df is not None:
     with col2:
         columns = df.shape[1] # counts the number of columns
         st.metric(metric_title1, format(round(columns)))
- 
+
 
     def load_data():
         return pd.DataFrame(
             {
-                "Rows": [5500],
-                "Columns": [76],
+                "Rows": [rows],
+                "Columns": [columns],
             }
         )
 
@@ -86,12 +78,10 @@ if df is not None:
 
     df = load_data()
 
-    # Display the dataframe and allow the user to stretch the dataframe
-    # across the full width of the container, based on the checkbox value
+    # Display the dataframe and allow the user to stretch the dataframe the full width of the container, based on the checkbox input
     st.dataframe(df, use_container_width=st.session_state.use_container_width)
 
 
-
-    
 else:
-    st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
+    # st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
+    st.warning('Please Upload Your Data File for Analysis')

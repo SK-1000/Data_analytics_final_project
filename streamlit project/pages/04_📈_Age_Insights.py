@@ -38,23 +38,16 @@ if df is not None:
     st.dataframe(ageCategoryBreakdown, use_container_width=True)
     st.bar_chart(ageCategoryBreakdown)
 
-    
-
     left, right = st.columns(2)
     with right:
-
-
         st.header('Age Stats')
         #rounded age stats values with pandas .round function and removed the zeros after the decimal with .astype(int)
         ageStats = df['Age'].describe().round().astype(int)
         st.dataframe(ageStats, use_container_width=True)
-  
-
     with left:
         st.header('Age Category Per Gender')
         ageCatPerGenderTable = df.assign(count=1).pivot_table(index='Age Category', columns = 'Gender', values='count', aggfunc='sum', fill_value=0)
         st.dataframe(ageCatPerGenderTable, use_container_width=True)
-
 
     #using matplot lib to plot a pie chart per gender for each Age Category
     # started with dataframe of Age Category as index and male and female counts for each
@@ -67,31 +60,18 @@ if df is not None:
     df4 = secondAgeCat
     thirdAgeCat = df2.loc[['57-77 Group'],['male','female']]
     df5 = thirdAgeCat
-    
     fourthAgeCat = df2.loc[['Masters'],['male','female']]
     df6 = fourthAgeCat
     
     # selected only the values for male and female 
     male = df3.iloc[0,0]
-   
     female = df3.iloc[0,1]
-  
-
     male4 = df4.iloc[0,0]
-   
     female4 = df4.iloc[0,1]
-   
-
     male5 = df5.iloc[0,0]
-   
     female5 = df5.iloc[0,1]
-    
-
     male6 = df6.iloc[0,0]
- 
     female6 = df6.iloc[0,1]
-  
-    
     labels = 'male', 'female'
     sizes = [male, female]
     sizes4 = [male4, female4]
