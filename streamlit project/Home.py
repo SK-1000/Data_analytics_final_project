@@ -73,8 +73,9 @@ if authentication_status:
         df = pd.read_csv(uploaded_file)
         st.session_state['df'] = df
     else:
-        # st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
-        st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
+        df = st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+        st.session_state['df'] = df
+       # st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
     
 elif authentication_status is False:
     st.error('Username/password is incorrect')
