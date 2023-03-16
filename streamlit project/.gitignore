@@ -126,7 +126,7 @@ celerybeat.pid
 update_to_database.py
 
 # Environments
-.env
+#.env
 .venv
 env/
 venv/
