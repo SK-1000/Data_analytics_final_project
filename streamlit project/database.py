@@ -6,9 +6,10 @@ from dotenv import load_dotenv  # pip install python-dotenv
 
 
 # Load the environment variables
-load_dotenv(".env")
-DETA_KEY = os.getenv("DETA_KEY")
-# DETA_KEY = "a0qfbaj6rpb_zickJfXwc7yWn5vwYEGNJF1P456mwsXy"
+# load_dotenv(".env")
+# DETA_KEY = os.getenv("DETA_KEY")
+DETA_KEY = "a0qfbaj6rpb_zickJfXwc7yWn5vwYEGNJF1P456mwsXy" # I know this shouldnt be her and should be in .env but it caused problems with deployment.
+
 
 # Initialize with a project key
 deta = Deta(DETA_KEY)
