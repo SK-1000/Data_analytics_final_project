@@ -34,7 +34,7 @@ if uploaded_file is not None:
     st.caption(pageSubTitle)
     # For some reason relating to changing the format of the order date column I need to have the upload file code here rather than the session. I'll explore more.
     # if df is not None:  
-    st.caption(pageSubTitle)  
+   
 
     #search fuctionality using text_input functionality and df.loc
     input = st.text_input('Enter the surname of the participant you would like to search For', 'Jones')
@@ -100,23 +100,6 @@ if uploaded_file is not None:
     st.write(fig1)
 
 
-
-
-
-
-
-
-
-    # st.header ('Plotting orders per date')
-    # fig1, ax = plt.subplots(figsize=(12,6), layout='constrained')
-    # dates = df.index
-    # # data = df['barcode'].value_counts
-    # data = np.cumsum(np.random.randn(len(dates)))
-
-  
-
-
-
-
 else:
-    st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
+
+    st.warning('Please Upload Your Data File for Analysis')

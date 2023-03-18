@@ -7,6 +7,9 @@ import matplotlib as mpl
 
 df = st.session_state['df']
 
+pageSubTitle = 'Source: Inputted Data file'
+st.markdown("<h1 style='text-align: center; color: white;'>Participant Gender Insights</h1>", unsafe_allow_html=True)
+
 #removes the default burger menu
 hide_default_format = """
        <style>
@@ -98,4 +101,5 @@ if df is not None:
     
 
 else:
-    st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+    # st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+    st.warning('Please Upload Your Data File for Analysis')

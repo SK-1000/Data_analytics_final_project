@@ -146,4 +146,5 @@ if df is not None:
     x='Age', size='Ticket Price', color='Ticket Price', tooltip=['Age', 'Event Year', 'Ticket Price'])
     st.altair_chart(c, use_container_width=True)
 else:
-    st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+    # st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+    st.warning('Please Upload Your Data File for Analysis')

@@ -176,4 +176,5 @@ if df is not None:
 
     st.map(df)
 else:
-    st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+    # st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+    st.warning('Please Upload Your Data File for Analysis')
