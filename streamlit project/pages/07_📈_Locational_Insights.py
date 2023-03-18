@@ -49,7 +49,7 @@ def display_map(df, year, month):
     choropleth = folium.Choropleth(
         geo_data='data/Counties.geojson.txt',
         data=df,
-        columns=('County', 'Age'),
+        columns=('County', 'Participant Count'),
         key_on='feature.properties.COUNTY',
         line_opacity=0.7,
         line_color='blue',
@@ -57,13 +57,18 @@ def display_map(df, year, month):
     )
     choropleth.geojson.add_to(map)
    
-    # df = df.set_index('County')
-    # totalcounts = len(df.index) #counts number of rows 
-    # st.write(df.loc[county])
     
+    county = 'KERRY'
+    
+    #This is currently filtered by booking year and booking month.
+    df = df.loc[df['County'] == county, 'Participant Count'].sum()
+    st.write(df)
 
 
+
+    st.subheader(f'{county} Metrics')
     for feature in choropleth.geojson.data['features']:
+        # county = feature['properties']['COUNTY']
         feature['properties']['participants'] = 'PARTICIPANTS: 100'
 
     choropleth.geojson.add_child(
@@ -129,7 +134,7 @@ if df is not None:
     # st.write(df.columns)
    
 #display filters and map
-
+    
     display_map(df, year, month)
 
 
