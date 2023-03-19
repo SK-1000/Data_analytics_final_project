@@ -57,27 +57,30 @@ def display_map(df, year, month):
     )
     choropleth.geojson.add_to(map)
    
-    
-    county = 'KERRY'
-    
+    # df = df.set_index(df['County'])
+    df = df.set_index('County')
+    county = 'DUBLIN'
+    st.write(county)
     #This is currently filtered by booking year and booking month.
-    df = df.loc[df['County'] == county, 'Participant Count'].sum()
-    st.write(df)
-
-
+   
 
     st.subheader(f'{county} Metrics')
-    for feature in choropleth.geojson.data['features']:
-        # county = feature['properties']['COUNTY']
-        feature['properties']['participants'] = 'PARTICIPANTS: 100'
 
+    for feature in choropleth.geojson.data['features']:
+        county = feature['properties']['COUNTY']
+        feature['properties']['PARTICIPANTS'] = '  ' + str(df.loc[county, 'Participant Count'].sum() if county in list(df.index) else 'N/A') 
+        #found the sum of each county and put it to the geoJason as a property called participant.I took the county name from data fram and converted it as a string.
+        # There was an issue whereby some counties were not available in my data for this filtered period so I added a condition taht 
+        #if the fieldname is available in the geoJason and also available in my dataframe, it will display otherwise it wont display.
+        feature['properties']['PROFIT'] = '  ' + str(df.loc[county, 'Profit Per Ticket'].sum() if county in list(df.index) else 'N/A')
     choropleth.geojson.add_child(
-        folium.features.GeoJsonTooltip(['COUNTY', 'PROVINCE', 'participants'])
+        folium.features.GeoJsonTooltip(['COUNTY', 'PROVINCE', 'PARTICIPANTS','PROFIT'])
     )
     st_map = st_folium(map, width=700, height=450) #return the map object into the streamlit folium library to display map
-
-    # st.write(df.shape)
-    # st.write(df.head())
+    county = ''
+    if st_map['last_active_drawing']:
+        county = st_map['last_active_drawing']['properties']['COUNTY']
+    return county
 
 
 
@@ -135,13 +138,7 @@ if df is not None:
    
 #display filters and map
     
-    display_map(df, year, month)
-
-
-
-
-
-
+    county = display_map(df, year, month)
 
 
 
