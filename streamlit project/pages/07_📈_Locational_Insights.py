@@ -22,8 +22,8 @@ PAGE_SUB_TITLE = 'Source: Inputted Data file'
 #     st.metric(metric_title, number_format.format(round(total)))
 
 @st.cache_data
-def display_participant_facts(df, year, month, county, event_name, metric_title, number_format='€{:,}', is_median =False, need_count=False): #added a variable for euro
-    df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month) & (df['Event Name'] == event_name)]
+def display_participant_facts(df, year, month, county, metric_title, number_format='€{:,}', is_median =False, need_count=False): #added a variable for euro
+    df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month)]
     if county:
         df = df[df['County'] == county]
     if is_median:
@@ -34,7 +34,21 @@ def display_participant_facts(df, year, month, county, event_name, metric_title,
         total = len(df.index) #counts number of rows
     st.metric(metric_title, number_format.format(round(total)))
 
+
+# @st.cache_data
+# def display_participant_facts(df, year, month, county, event_name, metric_title, number_format='€{:,}', is_median =False, need_count=False): #added a variable for euro
+#     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month) & (df['Event Name'] == event_name)]
+#     if county:
+#         df = df[df['County'] == county]
+#     if is_median:
+#         total = df[field_name].median() #gives median profit
+#     else:
+#         total = df[field_name].sum() #sums profit
+#     if need_count:
+#         total = len(df.index) #counts number of rows
+#     st.metric(metric_title, number_format.format(round(total)))
 # TEST ADDING A CACHE HERE
+
 def display_map(df, year, month):
 
     # st.header('Counties by Participant Count')
@@ -57,14 +71,11 @@ def display_map(df, year, month):
     )
     choropleth.geojson.add_to(map)
    
-    # df = df.set_index(df['County'])
     df = df.set_index('County')
     county = 'DUBLIN'
-    st.write(county)
+    
     #This is currently filtered by booking year and booking month.
-   
 
-    st.subheader(f'{county} Metrics')
 
     for feature in choropleth.geojson.data['features']:
         county = feature['properties']['COUNTY']
@@ -85,15 +96,11 @@ def display_map(df, year, month):
 
 
 def main():
-
-   
     st.set_page_config(PAGE_TITLE)
     st.title(PAGE_TITLE)
     st.caption(PAGE_SUB_TITLE)
 
-#call main function
-if __name__ == "__main__":
-    main()
+
 
 #removes the default burger menu
 hide_default_format = """
@@ -112,52 +119,56 @@ if df is not None:
     year = 2021
     month = 'January'
     county = ''
-    event_name = 'Cycle Kerry'
+    # event_name = 'Cycle Kerry'
     field_name = 'Profit Per Ticket'
-    metric_title = f'No. of {event_name} Participants' #Included the event name variable
+    metric_title = f'No. of {county} Participants' #Included the event name variable
+
+    #display filters and map
+    year_list = list(df['Booking Year'].unique())
+    year_list.sort(reverse=True)
+    
+    year = st.sidebar.selectbox('Booking Year', year_list)
+
+    month_list = list(df['Booking Month'].unique())
+    month_list.sort()
+    
+    month = st.sidebar.selectbox('Booking Month', month_list)
 
 
-#display metrics
-    st.subheader(f'{event_name} Metrics')
+    st.header(f'{county} {year} {month}')
+
+    county = display_map(df, year, month)
+    # display_map(df, year, month)
+
+    #display metrics
+    st.subheader(f'{county} Metrics')
     #call functions
     col1, col2, col3 = st.columns(3)
     with col1:
-        display_participant_facts(df, year, month, county, event_name, f'No. of {event_name} Participants',number_format='{:,}',is_median=True, need_count=True)
+        display_participant_facts(df, year, month, county, f'No. of {county} Participants',number_format='{:,}',is_median=True, need_count=True)
     with col2:
-        display_participant_facts(df, year, month, county, event_name, 'Total EUR Profit')
+        display_participant_facts(df, year, month, county, 'Total EUR Profit')
     with col3:
-        display_participant_facts(df, year, month, county, event_name, 'Median EUR Profit',is_median=True)
+        display_participant_facts(df, year, month, county,  'Median EUR Profit',is_median=True)
    
+    #     #display metrics
+    # st.subheader(f'{event_name} Metrics')
+    # #call functions
+    # col1, col2, col3 = st.columns(3)
+    # with col1:
+    #     display_participant_facts(df, year, month, county, event_name, f'No. of {event_name} Participants',number_format='{:,}',is_median=True, need_count=True)
+    # with col2:
+    #     display_participant_facts(df, year, month, county, event_name, 'Total EUR Profit')
+    # with col3:
+    #     display_participant_facts(df, year, month, county, event_name, 'Median EUR Profit',is_median=True)
 
-
-#exploring data
+    #exploring data
 
     # st.write(df.shape)
     # st.write(df.head())
     # st.write(df.columns)
    
-#display filters and map
     
-    county = display_map(df, year, month)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     st.header('Participants Age Category per Annum')
     AgeCatCountPerYearTable = df.assign(count=1).pivot_table(index='Event Year', columns = 'Age Category', values='count', aggfunc='sum', fill_value=0)
@@ -180,3 +191,9 @@ if df is not None:
 else:
     # st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
     st.warning('Please Upload Your Data File for Analysis')
+
+
+
+#call main function
+if __name__ == "__main__":
+    main()
