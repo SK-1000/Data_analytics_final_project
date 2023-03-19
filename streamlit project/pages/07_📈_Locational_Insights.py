@@ -11,15 +11,9 @@ from streamlit_folium import st_folium
 df = st.session_state['df']
 PAGE_TITLE = 'Participant Counts and Profit Metrics'
 PAGE_SUB_TITLE = 'Source: Inputted Data file'
-
-    #filter participants by year,month, county and event name
-# def display_participant_count_facts(df, year, month, county, event_name, metric_title, number_format='{:,}'):
-#     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month) & (df['Event Name'] == event_name)]
-#     if county:
-#         df = df[df['County'] == county]
-
-#     total = len(df.index) #counts number of rows
-#     st.metric(metric_title, number_format.format(round(total)))
+st.set_page_config(PAGE_TITLE)
+st.title(PAGE_TITLE)
+st.caption(PAGE_SUB_TITLE)
 
 @st.cache_data
 def display_participant_facts(df, year, month, county, metric_title, number_format='€{:,}', is_median =False, need_count=False): #added a variable for euro
@@ -35,25 +29,9 @@ def display_participant_facts(df, year, month, county, metric_title, number_form
     st.metric(metric_title, number_format.format(round(total)))
 
 
-# @st.cache_data
-# def display_participant_facts(df, year, month, county, event_name, metric_title, number_format='€{:,}', is_median =False, need_count=False): #added a variable for euro
-#     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month) & (df['Event Name'] == event_name)]
-#     if county:
-#         df = df[df['County'] == county]
-#     if is_median:
-#         total = df[field_name].median() #gives median profit
-#     else:
-#         total = df[field_name].sum() #sums profit
-#     if need_count:
-#         total = len(df.index) #counts number of rows
-#     st.metric(metric_title, number_format.format(round(total)))
-# TEST ADDING A CACHE HERE
 
 def display_map(df, year, month):
 
-    # st.header('Counties by Participant Count')
-    # df = df.assign(count=1).pivot_table(index=('County', 'Booking Year', 'Booking Month'), values='count', aggfunc='sum', fill_value=0)
-    # st.dataframe(df)
 
     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month)]
   
@@ -93,23 +71,37 @@ def display_map(df, year, month):
         county = st_map['last_active_drawing']['properties']['COUNTY']
     return county
 
+def show_time_options(df):
+    year_list = list(df['Booking Year'].unique())
+    year_list.sort(reverse=True)
+    year = st.sidebar.selectbox('Booking Year', year_list)
+    month_list = list(df['Booking Month'].unique())
+    month_list.sort()
+    month = st.sidebar.selectbox('Booking Month', month_list)
+    st.header(f'{county} {year} {month}')
+    return year, month
 
+
+def display_county_filter(df, county):
+    county_list = [''] + list(df['County'].unique()) # county list is a unique list of county from df. Also a blank element is first in the list
+    county_list.sort()
+    county_index = county_list.index(county) if county and county in county_list else 0
+    return st.sidebar.selectbox('County', county_list, county_index) # I need to pass the index name into  the select box so it updates when I click on the map rather than selectbox
+    
 
 def main():
-    st.set_page_config(PAGE_TITLE)
-    st.title(PAGE_TITLE)
-    st.caption(PAGE_SUB_TITLE)
+
 
 
 
 #removes the default burger menu
-hide_default_format = """
-       <style>
-       #MainMenu {visibility: hidden; }
-       footer {visibility: hidden;}
-       </style>
-       """
-st.markdown(hide_default_format, unsafe_allow_html=True)
+    hide_default_format = """
+        <style>
+        #MainMenu {visibility: hidden; }
+        footer {visibility: hidden;}
+        </style>
+        """
+    st.markdown(hide_default_format, unsafe_allow_html=True)
 
 
 
@@ -124,24 +116,15 @@ if df is not None:
     metric_title = f'No. of {county} Participants' #Included the event name variable
 
     #display filters and map
-    year_list = list(df['Booking Year'].unique())
-    year_list.sort(reverse=True)
-    
-    year = st.sidebar.selectbox('Booking Year', year_list)
-
-    month_list = list(df['Booking Month'].unique())
-    month_list.sort()
-    
-    month = st.sidebar.selectbox('Booking Month', month_list)
-
-
-    st.header(f'{county} {year} {month}')
-
+    year, month = show_time_options(df)
     county = display_map(df, year, month)
-    # display_map(df, year, month)
+    county = display_county_filter(df, county)
 
+
+
+   
     #display metrics
-    st.subheader(f'{county} Metrics')
+    st.subheader(f'{county} Participants Metrics')
     #call functions
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -151,28 +134,8 @@ if df is not None:
     with col3:
         display_participant_facts(df, year, month, county,  'Median EUR Profit',is_median=True)
    
-    #     #display metrics
-    # st.subheader(f'{event_name} Metrics')
-    # #call functions
-    # col1, col2, col3 = st.columns(3)
-    # with col1:
-    #     display_participant_facts(df, year, month, county, event_name, f'No. of {event_name} Participants',number_format='{:,}',is_median=True, need_count=True)
-    # with col2:
-    #     display_participant_facts(df, year, month, county, event_name, 'Total EUR Profit')
-    # with col3:
-    #     display_participant_facts(df, year, month, county, event_name, 'Median EUR Profit',is_median=True)
 
-    #exploring data
 
-    # st.write(df.shape)
-    # st.write(df.head())
-    # st.write(df.columns)
-   
-    
-
-    st.header('Participants Age Category per Annum')
-    AgeCatCountPerYearTable = df.assign(count=1).pivot_table(index='Event Year', columns = 'Age Category', values='count', aggfunc='sum', fill_value=0)
-    st.dataframe(AgeCatCountPerYearTable)
     #test
     st.header('Counties by Participant Count')
     AgeCatCountPerYearTable = df.assign(count=1).pivot_table(index='County', values='count', aggfunc='sum', fill_value=0)
@@ -187,7 +150,7 @@ if df is not None:
     np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
     columns=['lat', 'lon'])
 
-    st.map(df)
+   
 else:
     # st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
     st.warning('Please Upload Your Data File for Analysis')
