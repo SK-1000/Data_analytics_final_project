@@ -56,9 +56,9 @@ if authentication_status:
         st.write(' ')
     with col2:
         # headers, titles and text
-        st.markdown("<h1 style='text-align: center; color: White;'>Event Data Analysis Tool</h1>", unsafe_allow_html=True)
-        st.markdown("<h3 style='text-align: center; color: White;'>Use current trends to visual further opportunities</h3>", unsafe_allow_html=True)
-        st.markdown("<h5 style='text-align: center; color: White;'>Simply input your data and this app will do the rest</h5>", unsafe_allow_html=True)
+        st.markdown("<h1 style='text-align: center; color: White; font-family:system-ui;'>Event Data Analysis Tool</h1>", unsafe_allow_html=True)
+        st.markdown("<h3 style='text-align: center; color: White; font-family:system-ui;'>Use current trends to visual further opportunities</h3>", unsafe_allow_html=True)
+        st.markdown("<h5 style='text-align: center; color: White; font-family:system-ui;'>Simply input your data and this app will do the rest</h5>", unsafe_allow_html=True)
         st.image('./content/cycle.png',width=500)
     with col3:
         st.write(' ')
@@ -73,7 +73,7 @@ if authentication_status:
         df = pd.read_csv(uploaded_file)
         st.session_state['df'] = df
     else:
-        df = st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
+        df = st.warning('Please Upload Your Data File for Analysis')
         st.session_state['df'] = df
        # st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
     

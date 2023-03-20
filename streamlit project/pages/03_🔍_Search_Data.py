@@ -84,7 +84,7 @@ if uploaded_file is not None:
     county_choice = df['County'].unique().tolist()
     date_choice = df['Booking Date'].unique().tolist()
     date = st.selectbox('Which date would you like to see participant counts for', date_choice, 100)
-    county = st.multiselect('Which county would you like to see participant counts for?', county_choice, ['Dublin'])
+    county = st.multiselect('Which county would you like to see participant counts for?', county_choice, ['DUBLIN'])
 
     df = df[df['County'].isin(county)]
 

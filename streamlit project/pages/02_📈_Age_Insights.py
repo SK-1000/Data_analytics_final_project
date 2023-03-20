@@ -126,18 +126,9 @@ if df is not None:
     st.header ('Age Category Profit')
     ax = df[['Profit Per Ticket', 'Age Category']].boxplot(by='Age Category',figsize=(10,6))
     ax.set_ylabel('Profit')
-
     fig16, ax = plt.subplots()  # Create a figure containing a single axes.
     df['Age Category'].value_counts().plot(kind='pie', figsize=(6,6) )
     st.pyplot(fig16)
-
-    
-
-    fig17, ax = plt.subplots(1,1)
-    ax.scatter(x=df['Event Year'], y=df['Age'])
-    ax.set_xlabel=('Event Year')
-    st.pyplot(fig17)
-
 
     
     #decided to try using an altair chart from the streamlit documentation description https://docs.streamlit.io/library/api-reference/charts/st.altair_chart

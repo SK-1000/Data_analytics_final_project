@@ -65,8 +65,10 @@ if df is not None:
     st.pyplot(fig16)
 
     st.header('Ticket Price paid per order date')
+    
+    
     st.line_chart(df, x="Order Timestamp", y="Ticket Price")
-
+    
 else:
     # st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
     st.warning('Please Upload Your Data File for Analysis')

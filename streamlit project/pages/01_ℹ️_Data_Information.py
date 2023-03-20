@@ -30,7 +30,7 @@ if df is not None:
 
     csv = convert_df(df2)
     
-    st.header ('Subset of the first rows of date from the inputted file')
+    st.header ('Data Sample - Subset Row 1 - 5')
     st.write(df2)
 
     st.download_button(
@@ -46,7 +46,7 @@ if df is not None:
         " understand", " and agree to abide by the above Public health measures for COVID-19", "Privacy Policy", "Refund and Transfer Policy", 
         "Cycling Ireland Licence Number", "Club", "Rider Category", 'UCI ID', 'Date of Purchase', 'Active Order Number', 'Active CI Member', 'Active CI Number',
         'Active County', 'Active Mobile', 'Comment', 'Fundraiser Status'], axis = 1)
-    st.header('Data Statistics')
+    st.header('Data Statistics - counts, mean, standard deviation, minimum and maximum of data inputted')
     
     st.dataframe(df4.describe())
 

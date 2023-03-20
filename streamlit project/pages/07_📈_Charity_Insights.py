@@ -49,15 +49,11 @@ if df is not None:
     # year = st.selectbox('Select a Year', year_choice, 0) #default is zero
     # df = df[df['Booking Year']==year] # filter the data based on the year
 
-
+    st.header('Charity amounts raised displayed by participant age per year')
     fig = px.scatter(df, x="Raised", y="Age", size="Profit Per Ticket", color="Event Name", hover_name="Event Name", log_x=True, size_max=55, range_x=[5,10000],
     range_y=[14,110], animation_frame="Booking Year", animation_group="County")
-
     fig.update_layout(width=800)
     st.write(fig)
-
-
-
 
 
     st.header('Amount Raised per Charity')
@@ -68,7 +64,7 @@ if df is not None:
     raisedPerCharityTable = df.pivot_table(index=('Event Name','Charity'), values=['Raised'], aggfunc='sum')
     st.dataframe(raisedPerCharityTable)
 
-    st.header('Amount Raised')
+    st.header('Plot of Amounts Raised per Participant')
     #The majority of participants are between the ages of approx 35 and 65 with a few outliers
     fig, ax = plt.subplots()
     df['Raised'].plot(kind='box', vert=False, figsize=(14,6))

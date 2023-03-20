@@ -29,9 +29,10 @@ def display_participant_facts(df, year, month, county, metric_title, number_form
     st.metric(metric_title, number_format.format(round(total)))
 
 
-
 def display_map(df, year, month):
 
+
+    st.progress(0,'Thank you for your patience')
 
     df = df[(df['Booking Year'] == year) & (df['Booking Month'] == month)]
   
@@ -119,7 +120,7 @@ if df is not None:
     year, month = show_time_options(df)
     county = display_map(df, year, month)
     county = display_county_filter(df, county)
-
+    
 
 
    

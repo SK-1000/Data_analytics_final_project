@@ -54,23 +54,6 @@ if df is not None:
     genderBreakPerCycles = df.groupby(['Event Name'])['Gender'].value_counts().plot(kind='pie')
     st.pyplot(fig10)
 
-    st.header('Trend Per Gender Per Year')
-
-    # make data
-    x = df['Event Year']
-    y = df['Gender']
-
-    # plot
-    fig12, ax = plt.subplots()
-
-    ax.plot(x, y)
-
-    # ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
-    #     ylim=(0, 8), yticks=np.arange(1, 8))
-
-    # plt.show()
-    st.pyplot(fig12)
-
 
     st.header('Gender Overview')
     gender1Table = df['Gender'].describe()
