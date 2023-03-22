@@ -1,4 +1,5 @@
-
+#Author Sheila Kirwan
+# This page consists of an Interactive Folium map dashboard which lists the participant counts and profit based on the Booking year, Booking Month and Booking County selected either on the sidebar select boxes or by clicking on the map. It uses a map from downloaded geoJSON file of the official Irish geographic county borders from the Ordnance Survey Ireland website. This is stored in the data folder of my project and referenced by the code on for this page. Ordinance Survey Ireland (n.d.)
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd

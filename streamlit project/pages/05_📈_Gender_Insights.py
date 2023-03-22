@@ -1,4 +1,5 @@
-
+# Author Sheila Kirwan
+#This page contains gender related pivot tables and pie charts
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -29,14 +30,8 @@ if df is not None:
     colors = ["#4BFFC9", "#32a89b"]
     plt.pie(gender, labels=gender, colors=colors,
     autopct='%1.1f%%', shadow=True, startangle=120)
-    # plt.title("Gender breakdown\n"+"All Events")
     st.pyplot(fig9)
 
-    # st.header('Gender Breakdown per Race')
-
-    # race = df["Event Name"]
-
-    # gender = df["Gender"].value_counts()
   
 
     st.header('Participants sales per gender')
@@ -64,10 +59,6 @@ if df is not None:
 
 
 
-    st.header('Participants Ticket sales per gender')
-    genderValueTable = df.pivot_table(index='Gender', values=['Ticket Price', 'Total Price Paid Per Ticket'], aggfunc='sum')
-    st.dataframe(genderValueTable)
-
     st.header('Participants Ticket sales per gender per Race')
     genderValuePerEventTable = df.pivot_table(index='Gender', columns='Event Name', values=['Ticket Price'], aggfunc='sum')
     st.dataframe(genderValuePerEventTable)
@@ -84,5 +75,4 @@ if df is not None:
     
 
 else:
-    # st.write("REMEMBER TO UPLOAD A FILE IN ORDER TO VIEW DATA")
     st.warning('Please Upload Your Data File for Analysis')
