@@ -15,6 +15,7 @@ import plotly.io as pio
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Search Event Participant Data</h1>", unsafe_allow_html=True)
+st.title('Search Data')
 #REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
 #removes the default burger menu
 hide_default_format = """
