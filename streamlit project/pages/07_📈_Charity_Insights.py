@@ -1,3 +1,5 @@
+# Author Sheila Kirwan
+# This page contains an animated plotly express graph, metrics, specific name data is displayed based on maximum charity amount collected, as well as pivot tables
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -9,7 +11,7 @@ df = st.session_state['df']
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Charity Insights</h1>", unsafe_allow_html=True)
-
+st.title('Charity Information')
 #removes the default burger menu
 hide_default_format = """
        <style>
@@ -28,7 +30,7 @@ if df is not None:
     range_y=[14,110], animation_frame="Booking Year", animation_group="County")
     fig.update_layout(width=800)
     st.write(fig)
-    
+
     left, right = st.columns(2)   
     with left:     
         totalRaised = (df['Raised'].sum())

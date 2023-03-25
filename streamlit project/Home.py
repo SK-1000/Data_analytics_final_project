@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly_express as px
 import streamlit_authenticator as stauth
+from streamlit_extras.switch_page_button import switch_page
 
 import yaml
 from yaml.loader import SafeLoader
@@ -34,6 +35,8 @@ authenticator = stauth.Authenticate(
 
 name, authentication_status, username = authenticator.login('Login', 'sidebar')
 
+
+
 #removes the default hamburger menu
 hide_default_format = """
     <style>
@@ -46,7 +49,8 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 if authentication_status:
     authenticator.logout('Logout', 'sidebar')
     
-    # hashing passwords for yaml file
+
+    # hashing passwords for YAML file
     # hashed_passwords = stauth.Hasher(['abc', 'def','ghi']).generate()
     # print(hashed_passwords)
 
@@ -72,9 +76,16 @@ if authentication_status:
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
         st.session_state['df'] = df
+        if username == 'jsmith':
+            st.write(f'Welcome *{name}*')     
+        elif username == 'rbriggs':
+                st.write(f'Welcome *{name}*')          
+        elif username == 'skirwan':
+                st.write(f'Welcome *{name}*')
+  
     else:
         df = st.warning('Please Upload Your Data File for Analysis')
-        st.session_state['df'] = df
+        # st.session_state['df'] = df
        # st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
     
 elif authentication_status is False:

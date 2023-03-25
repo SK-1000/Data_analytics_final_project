@@ -9,7 +9,7 @@ df = st.session_state['df']
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Graph Type Examples</h1>", unsafe_allow_html=True)
-
+st.title('samples')
 #removes the default burger menu
 hide_default_format = """
        <style>

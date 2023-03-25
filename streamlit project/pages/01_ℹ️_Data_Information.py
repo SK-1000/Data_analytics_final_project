@@ -2,12 +2,12 @@
 # This streamlit page displays information on the inputted data file.
 import streamlit as st
 import pandas as pd
-
 df = st.session_state['df']
+
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Data Information</h1>", unsafe_allow_html=True)
-
+st.title('Data Information')
 
 #removes the default burger menu
 hide_default_format = """
@@ -20,6 +20,7 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 
 
 if df is not None:
+    
     st.caption(pageSubTitle)
     df2 = df.head()
 
@@ -38,7 +39,7 @@ if df is not None:
     data=csv,
     file_name='df.csv',
     mime='text/csv',
-)
+    )
 
 
     #creating new dataframe that drops any column with N/A

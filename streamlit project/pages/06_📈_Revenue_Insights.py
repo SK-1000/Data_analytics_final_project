@@ -11,7 +11,7 @@ df = st.session_state['df']
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Revenue Insights</h1>", unsafe_allow_html=True)
-
+st.title('Revenue Information')
 #removes the default burger menu
 hide_default_format = """
        <style>

@@ -1,3 +1,7 @@
+# Author Sheila Kirwan
+# This page contains plotly express scatter plot however for this plot, the user can select the x and the y axix
+# from the list of columns in the data inputted.
+
 import streamlit as st
 import plotly_express as px
 import pandas as pd
@@ -6,7 +10,7 @@ import sys
 df = st.session_state['df']
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Plot Your Own Graph</h1>", unsafe_allow_html=True)
-
+st.title('Plot')
 
 #removes the default burger menu
 hide_default_format = """

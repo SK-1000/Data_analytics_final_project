@@ -7,7 +7,7 @@ df = st.session_state['df']
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Data Type Information</h1>", unsafe_allow_html=True)
-
+st.title('Data Types')
 #removes the default burger menu
 hide_default_format = """
        <style>
@@ -21,7 +21,7 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 
     # is file uploaded
 if df is not None:
-    st.markdown("<h1 style='text-align: center; color: white;'>Data Type Information</h1>", unsafe_allow_html=True)
+    # st.markdown("<h1 style='text-align: center; color: white;'>Data Type Information</h1>", unsafe_allow_html=True)
     st.caption(pageSubTitle)
 
 

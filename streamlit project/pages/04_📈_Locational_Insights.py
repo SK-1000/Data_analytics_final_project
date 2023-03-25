@@ -13,7 +13,7 @@ df = st.session_state['df']
 PAGE_TITLE = 'Participant Counts and Profit Metrics'
 PAGE_SUB_TITLE = 'Source: Inputted Data file'
 st.set_page_config(PAGE_TITLE)
-st.title(PAGE_TITLE)
+st.title('Participant Counts and Profit Metrics')
 st.caption(PAGE_SUB_TITLE)
 
 @st.cache_data
