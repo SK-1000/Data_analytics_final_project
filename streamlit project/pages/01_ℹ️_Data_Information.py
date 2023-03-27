@@ -2,6 +2,10 @@
 # This streamlit page displays information on the inputted data file.
 import streamlit as st
 import pandas as pd
+
+
+
+
 df = st.session_state['df']
 
 
@@ -17,6 +21,8 @@ hide_default_format = """
     </style>
     """
 st.markdown(hide_default_format, unsafe_allow_html=True)
+
+
 
 
 if df is not None:

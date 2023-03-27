@@ -1,6 +1,10 @@
 # Author Sheila Kirwan
 # This is the home page of my python streamlit app. It contains markdown with html formatting, streamlit components such as st.write and st.sidebar, st.sidebar.fileuploader to name a few.
 
+#
+
+#if the user is logged in and the a file is uploaded then go ahead. If not show warning message
+
 
 import streamlit as st
 import pandas as pd
@@ -18,13 +22,16 @@ import database as db
 from PIL import Image
 # Loading Image using PIL
 im = Image.open('./content/dudeonbike.jfif')
+
+
 # This widens the space on the page where data is displayed and adds and image and title to the tab
 st.set_page_config(layout="wide", page_title="Event Data App", page_icon = im)
 
 
+# loading the user credentials file
 with open('./config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
-
+# creating an authenticator object
 authenticator = stauth.Authenticate(
     config['credentials'],
     config['cookie']['name'],
@@ -34,7 +41,6 @@ authenticator = stauth.Authenticate(
 )
 
 name, authentication_status, username = authenticator.login('Login', 'sidebar')
-
 
 
 #removes the default hamburger menu
@@ -48,7 +54,7 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 
 if authentication_status:
     authenticator.logout('Logout', 'sidebar')
-    
+   
 
     # hashing passwords for YAML file
     # hashed_passwords = stauth.Hasher(['abc', 'def','ghi']).generate()
@@ -85,7 +91,7 @@ if authentication_status:
   
     else:
         df = st.warning('Please Upload Your Data File for Analysis')
-        # st.session_state['df'] = df
+        st.session_state['df'] = df
        # st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
     
 elif authentication_status is False:
