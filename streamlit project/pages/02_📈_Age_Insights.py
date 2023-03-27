@@ -26,7 +26,6 @@ hide_default_format = """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
 
-
 # is file uploaded
 if df is not None:
     st.caption(pageSubTitle)
@@ -98,7 +97,6 @@ if df is not None:
         st.metric(label = 'Maximum Age', value =df['Age'].max())
     with col3:
         st.metric(label = 'Maximum Age', value =df['Age'].min())
-
 
 
     st.header('Ages Plot Graph')

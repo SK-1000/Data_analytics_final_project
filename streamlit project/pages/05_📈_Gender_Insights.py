@@ -55,10 +55,6 @@ if df is not None:
     st.dataframe(gender1Table)
 
 
-#REMEMBER I CAN CHANGE THE TYPE FOR DATES SO THEY ARE FORMATTED AS DATES SEE CHARITY PAGE FOR EXAMPLE
-
-
-
     st.header('Participants Ticket sales per gender per Race')
     genderValuePerEventTable = df.pivot_table(index='Gender', columns='Event Name', values=['Ticket Price'], aggfunc='sum')
     st.dataframe(genderValuePerEventTable)

@@ -21,7 +21,6 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-
     
 # is file uploaded
 if df is not None:

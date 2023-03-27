@@ -63,15 +63,11 @@ if df is not None:
 
     st.header('Average Price Paid per ticket')
 
-
-
     st.header('Details of Ticket Prices')
     AvgPricePerTicket = df['Total Price Paid Per Ticket'].describe()
     st.dataframe(AvgPricePerTicket)
 
     
-
-
     st.header('Ticket Price paid per order date')
     st.line_chart(df.head(10), x='Order Timestamp', y='Ticket Price')
     

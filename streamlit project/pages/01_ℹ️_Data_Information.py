@@ -3,11 +3,7 @@
 import streamlit as st
 import pandas as pd
 
-
-
-
 df = st.session_state['df']
-
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Data Information</h1>", unsafe_allow_html=True)
@@ -21,8 +17,6 @@ hide_default_format = """
     </style>
     """
 st.markdown(hide_default_format, unsafe_allow_html=True)
-
-
 
 
 if df is not None:

@@ -1,3 +1,6 @@
+# Sheila Kirwan
+# The purpose of this page was simply a training tool to learn different aspects of how to display different graphs. This page would not be displayed on the commercial version of this app.
+
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd

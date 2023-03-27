@@ -1,9 +1,10 @@
+#Sheila Kirwan
+#This page displays all of the datatypes of the columns in the data file inputted and is also downloadable.
+
 import streamlit as st
 import pandas as pd
 
 df = st.session_state['df']
-
-
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Data Type Information</h1>", unsafe_allow_html=True)
@@ -16,7 +17,6 @@ hide_default_format = """
        </style>
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
-
 
 
     # is file uploaded
