@@ -3,7 +3,9 @@
 import streamlit as st
 import pandas as pd
 
+
 df = st.session_state['df']
+
 
 pageSubTitle = 'Source: Inputted Data file'
 st.markdown("<h1 style='text-align: center; color: white;'>Data Information</h1>", unsafe_allow_html=True)
@@ -22,7 +24,8 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 if df is not None:
     
     st.caption(pageSubTitle)
-    df2 = df.head()
+    df2 = df.head() #There appears to be an error appearing due to this however the first 5 rows display correctly on the page. It may be due to empty values for some cells
+    
 
     @st.cache_data # updated to st.cache to st.cache_data as st.cache was depreciated when I upgraded streamlit to version 1.19.0
     def convert_df(df2):
@@ -86,3 +89,6 @@ if df is not None:
 else:
     # st.markdown("<h5 style='text-align: center; color: White;'>Please Upload Your Data File for Analysis</h5>", unsafe_allow_html=True)
     st.warning('Please Upload Your Data File for Analysis')
+
+
+
